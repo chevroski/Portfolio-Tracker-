@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.portfoliotracker.controller.ChartController"
+      spacing="20" styleClass="chart-view">
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+    
+    <!-- Header Row -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <FontIcon iconLiteral="fas-chart-line" iconSize="28" styleClass="header-icon"/>
+        <Label text="Portfolio Analytics" styleClass="page-title"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        
+        <HBox alignment="CENTER" spacing="5" styleClass="period-buttons">
+            <Button fx:id="btn1W" text="1W" onAction="#onPeriod1W" styleClass="period-btn"/>
+            <Button fx:id="btn1M" text="1M" onAction="#onPeriod1M" styleClass="period-btn"/>
+            <Button fx:id="btn3M" text="3M" onAction="#onPeriod3M" styleClass="period-btn"/>
+            <Button fx:id="btn1Y" text="1Y" onAction="#onPeriod1Y" styleClass="period-btn"/>
+        </HBox>
+        
+        <Button onAction="#onAddEvent" styleClass="btn-secondary">
+            <graphic><FontIcon iconLiteral="fas-flag" iconSize="12"/></graphic>
+            <text>Event</text>
+        </Button>
+        
+        <ComboBox fx:id="portfolioCombo" prefWidth="180" onAction="#onPortfolioChange" styleClass="portfolio-select"/>
+        <Button fx:id="compareAllBtn" text="Compare All" onAction="#onCompareAll" styleClass="btn-secondary"/>
+    </HBox>
+    
+    <!-- Stats Cards -->
+    <HBox spacing="15" styleClass="stats-row">
+        <VBox styleClass="stat-card" minWidth="160" HBox.hgrow="ALWAYS">
+            <Label text="TOTAL VALUE" styleClass="stat-label"/>
+            <Label fx:id="totalValueLabel" text="€0.00" styleClass="stat-value-large"/>
+        </VBox>
+        <VBox styleClass="stat-card" minWidth="160" HBox.hgrow="ALWAYS">
+            <Label fx:id="periodLabel" text="24H CHANGE" styleClass="stat-label"/>
+            <Label fx:id="changeLabel" text="+0.00%" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-card" minWidth="160" HBox.hgrow="ALWAYS">
+            <Label text="TOTAL P&amp;L" styleClass="stat-label"/>
+            <Label fx:id="pnlLabel" text="€0.00" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-card" minWidth="160" HBox.hgrow="ALWAYS">
+            <Label text="PROFIT DAYS" styleClass="stat-label"/>
+            <Label fx:id="profitDaysLabel" text="0%" styleClass="stat-value"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Asset Selector Bar -->
+    <HBox fx:id="assetSelectorBar" spacing="8" styleClass="asset-selector-bar" alignment="CENTER_LEFT">
+        <Label text="View:" styleClass="selector-label"/>
+        <!-- Buttons will be added dynamically -->
+    </HBox>
+    
+    <!-- Main Chart Area -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- Line Chart -->
+        <VBox HBox.hgrow="ALWAYS" styleClass="chart-card">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="chartTitleLabel" text="Portfolio Value" styleClass="chart-card-title"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="chartSubtitle" text="Click an asset below to filter" styleClass="chart-subtitle"/>
+            </HBox>
+            <StackPane VBox.vgrow="ALWAYS">
+                <LineChart fx:id="lineChart" animated="false" createSymbols="false" 
+                           legendVisible="false" styleClass="main-chart" 
+                           horizontalGridLinesVisible="false" verticalGridLinesVisible="false">
+                    <xAxis>
+                        <CategoryAxis fx:id="xAxis" tickMarkVisible="false"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" tickMarkVisible="false" minorTickVisible="false"/>
+                    </yAxis>
+                </LineChart>
+                <!-- Hover Tooltip -->
+                <VBox fx:id="tooltipBox" styleClass="chart-tooltip" visible="false" 
+                      managed="false" mouseTransparent="true" alignment="CENTER">
+                    <Label fx:id="tooltipDate" styleClass="tooltip-date"/>
+                    <Label fx:id="tooltipValue" styleClass="tooltip-value"/>
+                </VBox>
+            </StackPane>
+        </VBox>
+        
+        <!-- Right Panel: Pie + Asset Details -->
+        <VBox prefWidth="320" spacing="15">
+            <!-- Pie Chart -->
+            <VBox styleClass="chart-card" VBox.vgrow="ALWAYS">
+                <Label text="Allocation" styleClass="chart-card-title"/>
+                <Label text="Click slice to filter chart" styleClass="chart-subtitle"/>
+                <PieChart fx:id="pieChart" VBox.vgrow="ALWAYS" animated="true" 
+                          labelsVisible="false" legendSide="BOTTOM" styleClass="allocation-chart"/>
+            </VBox>
+            
+            <!-- Selected Asset Details -->
+            <VBox fx:id="assetDetailsCard" styleClass="chart-card, asset-details" visible="false" managed="false">
+                <Label fx:id="selectedAssetName" text="BTC" styleClass="asset-detail-name"/>
+                <HBox spacing="20">
+                    <VBox>
+                        <Label text="VALUE" styleClass="stat-label"/>
+                        <Label fx:id="selectedAssetValue" text="€0" styleClass="asset-detail-value"/>
+                    </VBox>
+                    <VBox>
+                        <Label text="ROI" styleClass="stat-label"/>
+                        <Label fx:id="selectedAssetRoi" text="+0%" styleClass="asset-detail-value"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </HBox>
+    
+    <!-- Loading -->
+    <HBox fx:id="loadingBox" alignment="CENTER" spacing="10" visible="false" managed="false">
+        <FontIcon iconLiteral="fas-spinner" iconSize="18" styleClass="spinning"/>
+        <Label text="Loading data..." styleClass="loading-text"/>
+    </HBox>
+</VBox>

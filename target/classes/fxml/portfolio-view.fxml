@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.portfoliotracker.controller.PortfolioController"
+      spacing="20" styleClass="portfolio-view">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <FontIcon iconLiteral="fas-briefcase" iconSize="28" styleClass="portfolio-icon"/>
+                <Label fx:id="portfolioNameLabel" text="Portfolio Name" styleClass="portfolio-title"/>
+            </HBox>
+            <Label fx:id="portfolioDescLabel" text="Description" styleClass="portfolio-desc"/>
+        </VBox>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <VBox alignment="CENTER_RIGHT" spacing="5">
+            <HBox alignment="CENTER_RIGHT" spacing="5">
+                <FontIcon iconLiteral="fas-coins" iconSize="20" styleClass="value-icon"/>
+                <Label fx:id="portfolioValueLabel" text="€0.00" styleClass="portfolio-value"/>
+            </HBox>
+            <Label fx:id="portfolioPnLLabel" text="+0.00%" styleClass="portfolio-pnl-positive"/>
+        </VBox>
+    </HBox>
+    
+    <Separator/>
+    
+    <HBox spacing="10">
+        <Button onAction="#onAddAsset" styleClass="btn-primary">
+            <graphic><FontIcon iconLiteral="fas-plus-circle" iconSize="14"/></graphic>
+            <text>Add Asset</text>
+        </Button>
+        <Button onAction="#onRemoveAsset" styleClass="btn-secondary">
+            <graphic><FontIcon iconLiteral="fas-minus-circle" iconSize="14"/></graphic>
+            <text>Remove Asset</text>
+        </Button>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button onAction="#onClonePortfolio" styleClass="btn-secondary">
+            <graphic><FontIcon iconLiteral="fas-copy" iconSize="14"/></graphic>
+            <text>Clone</text>
+        </Button>
+        <Button onAction="#onDeletePortfolio" styleClass="btn-danger">
+            <graphic><FontIcon iconLiteral="fas-trash-alt" iconSize="14"/></graphic>
+            <text>Delete</text>
+        </Button>
+    </HBox>
+    
+    <TableView fx:id="assetTableView" VBox.vgrow="ALWAYS" styleClass="asset-table">
+        <columns>
+            <TableColumn fx:id="tickerColumn" text="Ticker" prefWidth="80"/>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
+            <TableColumn fx:id="typeColumn" text="Type" prefWidth="80"/>
+            <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="120"/>
+            <TableColumn fx:id="avgPriceColumn" text="Avg Price" prefWidth="120"/>
+            <TableColumn fx:id="currentPriceColumn" text="Current Price" prefWidth="120"/>
+            <TableColumn fx:id="valueColumn" text="Value" prefWidth="120"/>
+            <TableColumn fx:id="pnlColumn" text="P&amp;L" prefWidth="100"/>
+        </columns>
+    </TableView>
+    
+</VBox>

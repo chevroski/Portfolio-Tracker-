@@ -1,0 +1,20 @@
+"You can use this transaction report to inform your likely tax obligations. For US customers, Sells, Converts, Rewards Income, Coinbase Earn transactions, and Donations are taxable events. For final tax obligations, please consult your tax advisor."
+
+
+
+Transactions
+User,wwxxxww@xxsww.com,
+
+Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total (inclusive of fees),Fees,Notes
+2017-11-26T18:52:59Z,Buy,BTC,0.03887189,EUR,8040.00,312.53,325.00,12.47,"Bought 0,03887189 BTC for 325,00 € EUR"
+2018-12-13T22:41:56Z,Buy,BTC,0.01657632,EUR,2896.30,48.01,50.00,1.99,"Bought 0,01657632 BTC for 50,00 € EUR"
+2019-06-13T20:04:12Z,Buy,LTC,3.0,EUR,116.34,349.02,362.95,13.93,"Bought 3,0000 LTC for 362,95 € EUR"
+2019-07-10T19:19:54Z,Buy,LINK,50.0,EUR,2.86,142.78,148.48,5.70,"Bought 50,0000 LINK for 148,48 € EUR"
+2019-07-11T10:34:15Z,Buy,LINK,100.0,EUR,2.63,262.61,273.09,10.48,"Bought 100,0000 LINK for 273,09 € EUR"
+2019-07-14T10:53:10Z,Buy,LINK,100.0,EUR,2.70,270.02,280.79,10.77,"Bought 100,0000 LINK for 280,79 € EUR"
+2019-08-15T19:08:40Z,Buy,LTC,5.0,EUR,68.70,343.49,357.20,13.71,"Bought 5,0000 LTC for 357,20 € EUR"
+2021-10-15T22:59:45Z,Buy,SOL,3.0,EUR,140.04,420.12,436.88,16.76,"Bought 3,0000 SOL for 436,88 € EUR"
+2021-11-28T22:30:39Z,Buy,SOL,4.0,EUR,175.57,702.27,730.29,28.02,"Bought 4,0000 SOL for 730,29 € EUR"
+2022-02-27T18:13:29Z,Buy,SOL,9.0,EUR,79.44,715.00,736.38,21.38,"Bought 9,0000 SOL for 736,38 € EUR"
+2022-04-11T08:24:56Z,Buy,SOL,10.0,EUR,101.84,1018.39,1059.02,40.63,"Bought 10,0000 SOL for 1 059,02 € EUR"
+

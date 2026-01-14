@@ -1,0 +1,47 @@
+[
+    {
+        "id": "event-001",
+        "title": "Bitcoin ETF Approval",
+        "description": "SEC approves first spot Bitcoin ETFs, major institutional adoption signal",
+        "tag": "NEWS",
+        "date": "2024-01-10T16:00:00",
+        "portfolioId": "demo-hodler-001",
+        "assetTicker": "BTC"
+    },
+    {
+        "id": "event-002",
+        "title": "ETH Dencun Upgrade",
+        "description": "Ethereum Dencun upgrade reduces L2 fees by 90%",
+        "tag": "TECH",
+        "date": "2024-03-13T12:00:00",
+        "portfolioId": "demo-hodler-001",
+        "assetTicker": "ETH"
+    },
+    {
+        "id": "event-003",
+        "title": "BTC Halving",
+        "description": "Fourth Bitcoin halving - block reward reduced to 3.125 BTC",
+        "tag": "MILESTONE",
+        "date": "2024-04-20T00:00:00",
+        "portfolioId": "demo-hodler-001",
+        "assetTicker": "BTC"
+    },
+    {
+        "id": "event-004",
+        "title": "Take Profit - BTC",
+        "description": "Sold 0.1 BTC at €42,000 for +20% profit",
+        "tag": "TRADE",
+        "date": "2024-03-15T14:30:00",
+        "portfolioId": "demo-trader-002",
+        "assetTicker": "BTC"
+    },
+    {
+        "id": "event-005",
+        "title": "Staking Rewards",
+        "description": "Received 5 LINK from staking rewards",
+        "tag": "REWARD",
+        "date": "2024-04-01T00:00:00",
+        "portfolioId": "demo-trader-002",
+        "assetTicker": "LINK"
+    }
+]

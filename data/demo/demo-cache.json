@@ -1,0 +1,46 @@
+{
+    "prices": {
+        "BTC": {
+            "EUR": 92500.0,
+            "USD": 97000.0
+        },
+        "ETH": {
+            "EUR": 3200.0,
+            "USD": 3400.0
+        },
+        "SOL": {
+            "EUR": 185.0,
+            "USD": 195.0
+        },
+        "LTC": {
+            "EUR": 95.0,
+            "USD": 100.0
+        },
+        "LINK": {
+            "EUR": 22.0,
+            "USD": 23.5
+        },
+        "ADA": {
+            "EUR": 0.95,
+            "USD": 1.0
+        },
+        "DOT": {
+            "EUR": 7.5,
+            "USD": 8.0
+        },
+        "XRP": {
+            "EUR": 2.1,
+            "USD": 2.2
+        },
+        "DOGE": {
+            "EUR": 0.35,
+            "USD": 0.37
+        },
+        "AVAX": {
+            "EUR": 38.0,
+            "USD": 40.0
+        }
+    },
+    "lastUpdated": "2026-01-11T06:00:00",
+    "note": "Demo cache - approximate prices for demonstration"
+}

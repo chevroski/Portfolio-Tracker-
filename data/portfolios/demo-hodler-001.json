@@ -1,0 +1,140 @@
+{
+  "id": "demo-hodler-001",
+  "name": "Crypto Hodler",
+  "description": "Long-term crypto investment portfolio - Buy \u0026 Hold strategy",
+  "currency": "EUR",
+  "createdAt": "2024-01-01T10:00:00",
+  "assets": [
+    {
+      "id": "7c6042a4-222a-4304-a67d-f4667ddfd121",
+      "ticker": "BTC",
+      "name": "BTC",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "933e03b2-4833-49a3-9e0f-3da157046e9a",
+          "type": "BUY",
+          "quantity": 0.03887189,
+          "pricePerUnit": 8040.0,
+          "date": "2017-11-26T18:52:59",
+          "fees": 12.47,
+          "notes": "Bought 0,03887189 BTC for 325,00 € EUR"
+        },
+        {
+          "id": "e48b1d76-75a2-42c1-a671-16e845b5a297",
+          "type": "BUY",
+          "quantity": 0.01657632,
+          "pricePerUnit": 2896.3,
+          "date": "2018-12-13T22:41:56",
+          "fees": 1.99,
+          "notes": "Bought 0,01657632 BTC for 50,00 € EUR"
+        }
+      ]
+    },
+    {
+      "id": "5051f6c5-910a-4034-881f-1d7b9f8b6a2d",
+      "ticker": "LTC",
+      "name": "LTC",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "5caa137f-2f21-48de-9405-4def9e63fa5a",
+          "type": "BUY",
+          "quantity": 3.0,
+          "pricePerUnit": 116.34,
+          "date": "2019-06-13T20:04:12",
+          "fees": 13.93,
+          "notes": "Bought 3,0000 LTC for 362,95 € EUR"
+        },
+        {
+          "id": "2eaf3cb4-1150-4ae2-b5a9-7de9744d5928",
+          "type": "BUY",
+          "quantity": 5.0,
+          "pricePerUnit": 68.7,
+          "date": "2019-08-15T19:08:40",
+          "fees": 13.71,
+          "notes": "Bought 5,0000 LTC for 357,20 € EUR"
+        }
+      ]
+    },
+    {
+      "id": "13f14233-b815-4a0d-94aa-ffbc07a562a9",
+      "ticker": "LINK",
+      "name": "LINK",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "78a1ae4b-8748-4182-8dc0-966b3ce631a4",
+          "type": "BUY",
+          "quantity": 50.0,
+          "pricePerUnit": 2.86,
+          "date": "2019-07-10T19:19:54",
+          "fees": 5.7,
+          "notes": "Bought 50,0000 LINK for 148,48 € EUR"
+        },
+        {
+          "id": "431553af-2093-441c-b75b-6bc549753f16",
+          "type": "BUY",
+          "quantity": 100.0,
+          "pricePerUnit": 2.63,
+          "date": "2019-07-11T10:34:15",
+          "fees": 10.48,
+          "notes": "Bought 100,0000 LINK for 273,09 € EUR"
+        },
+        {
+          "id": "b7eaac5b-0ee6-4dd0-bc44-5fb1aad9d3e4",
+          "type": "BUY",
+          "quantity": 100.0,
+          "pricePerUnit": 2.7,
+          "date": "2019-07-14T10:53:10",
+          "fees": 10.77,
+          "notes": "Bought 100,0000 LINK for 280,79 € EUR"
+        }
+      ]
+    },
+    {
+      "id": "332ef420-dab0-4ed2-8365-be5bfe89db50",
+      "ticker": "SOL",
+      "name": "SOL",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "fe65f02b-565f-4661-bd45-2d0ff65a0fd4",
+          "type": "BUY",
+          "quantity": 3.0,
+          "pricePerUnit": 140.04,
+          "date": "2021-10-15T22:59:45",
+          "fees": 16.76,
+          "notes": "Bought 3,0000 SOL for 436,88 € EUR"
+        },
+        {
+          "id": "302f3444-02f6-4c2e-b7e4-1814799f4cdb",
+          "type": "BUY",
+          "quantity": 4.0,
+          "pricePerUnit": 175.57,
+          "date": "2021-11-28T22:30:39",
+          "fees": 28.02,
+          "notes": "Bought 4,0000 SOL for 730,29 € EUR"
+        },
+        {
+          "id": "af72a93b-cafc-40e8-96fa-df11d1b87738",
+          "type": "BUY",
+          "quantity": 9.0,
+          "pricePerUnit": 79.44,
+          "date": "2022-02-27T18:13:29",
+          "fees": 21.38,
+          "notes": "Bought 9,0000 SOL for 736,38 € EUR"
+        },
+        {
+          "id": "0196ed42-780c-4364-a927-a8eb5e71986c",
+          "type": "BUY",
+          "quantity": 10.0,
+          "pricePerUnit": 101.84,
+          "date": "2022-04-11T08:24:56",
+          "fees": 40.63,
+          "notes": "Bought 10,0000 SOL for 1 059,02 € EUR"
+        }
+      ]
+    }
+  ]
+}

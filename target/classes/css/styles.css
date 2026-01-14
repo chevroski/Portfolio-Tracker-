@@ -1,0 +1,825 @@
+/* ==================== ROOT & GENERAL ==================== */
+.root {
+    -fx-background-color: #1a1a2e;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.root-pane {
+    -fx-background-color: #1a1a2e;
+}
+
+/* ==================== TOOLBAR ==================== */
+.toolbar {
+    -fx-background-color: #16213e;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary {
+    -fx-background-color: #e94560;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #ff6b6b;
+}
+
+.btn-secondary {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-min-width: 90px;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #1a4a7a;
+}
+
+.btn-danger {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #e74c3c;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+    -fx-background-color: #16213e;
+    -fx-padding: 10;
+}
+
+.sidebar-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+    -fx-padding: 0 0 10 0;
+}
+
+.portfolio-list {
+    -fx-background-color: #1a1a2e;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.portfolio-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #eaeaea;
+    -fx-padding: 10;
+}
+
+.portfolio-list .list-cell:filled:selected {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: white;
+}
+
+.portfolio-list .list-cell:filled:hover {
+    -fx-background-color: #0f3460;
+}
+
+/* ==================== CONTENT AREA ==================== */
+.content-area {
+    -fx-background-color: #1a1a2e;
+    -fx-padding: 20;
+}
+
+.welcome-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+}
+
+.welcome-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #888888;
+}
+
+/* ==================== PORTFOLIO VIEW ==================== */
+.portfolio-view {
+    -fx-background-color: #1a1a2e;
+}
+
+.portfolio-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+}
+
+.portfolio-desc {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+}
+
+.portfolio-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+}
+
+.portfolio-pnl-positive {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2ecc71;
+}
+
+.portfolio-pnl-negative {
+    -fx-font-size: 16px;
+    -fx-text-fill: #e74c3c;
+}
+
+/* ==================== TABLE ==================== */
+.asset-table {
+    -fx-background-color: #16213e;
+    -fx-background-insets: 0;
+}
+
+.asset-table .column-header {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: white;
+}
+
+.asset-table .column-header-background {
+    -fx-background-color: #0f3460;
+}
+
+.asset-table .table-row-cell {
+    -fx-background-color: #1a1a2e;
+}
+
+.asset-table .table-row-cell:odd {
+    -fx-background-color: #16213e;
+}
+
+.asset-table .table-row-cell:selected {
+    -fx-background-color: #0f3460;
+}
+
+.asset-table .table-cell {
+    -fx-text-fill: #eaeaea;
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 8;
+}
+
+/* ==================== CHARTS ==================== */
+.chart-view {
+    -fx-background-color: #1a1a2e;
+}
+
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+    -fx-padding: 0 0 10 0;
+}
+
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: #16213e;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #0f3460;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #0f3460;
+}
+
+.chart-legend {
+    -fx-background-color: #16213e;
+    -fx-text-fill: #eaeaea;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #e94560;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: #00d9ff;
+}
+
+.default-color2.chart-series-line {
+    -fx-stroke: #2ecc71;
+}
+
+.default-color3.chart-series-line {
+    -fx-stroke: #f39c12;
+}
+
+.default-color4.chart-series-line {
+    -fx-stroke: #9b59b6;
+}
+
+.default-color0.chart-pie-label {
+    -fx-fill: #e94560;
+}
+
+.default-color1.chart-pie-label {
+    -fx-fill: #00d9ff;
+}
+
+.default-color2.chart-pie-label {
+    -fx-fill: #2ecc71;
+}
+
+.default-color3.chart-pie-label {
+    -fx-fill: #f39c12;
+}
+
+/* ==================== DIALOG ==================== */
+.dialog-content {
+    -fx-background-color: #1a1a2e;
+}
+
+.dialog-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaeaea;
+    -fx-padding: 0 0 20 0;
+}
+
+/* ==================== FORM FIELDS ==================== */
+.text-field,
+.text-area,
+.combo-box,
+.date-picker {
+    -fx-background-color: #16213e;
+    -fx-text-fill: #eaeaea;
+    -fx-border-color: #0f3460;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+
+.text-field:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #e94560;
+}
+
+.label {
+    -fx-text-fill: #eaeaea;
+}
+
+/* ==================== STATUS ==================== */
+.status-label {
+    -fx-text-fill: #888888;
+    -fx-font-size: 12px;
+}
+
+/* ==================== SPLIT PANE ==================== */
+.split-pane {
+    -fx-background-color: #1a1a2e;
+}
+
+.split-pane-divider {
+    -fx-background-color: #0f3460;
+    -fx-padding: 2;
+}
+
+/* ==================== SEPARATOR ==================== */
+.separator .line {
+    -fx-border-color: #0f3460;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ==================== SCROLL BAR ==================== */
+.scroll-bar {
+    -fx-background-color: #16213e;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #0f3460;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #1a4a7a;
+}
+
+/* ==================== PASSPHRASE DIALOG ==================== */
+.dialog-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+}
+
+.error-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 12px;
+}
+
+.field-label {
+    -fx-text-fill: #eaeaea;
+    -fx-font-size: 14px;
+}
+
+/* ==================== ICONS ==================== */
+.ikonli-font-icon {
+    -fx-icon-color: #eaeaea;
+}
+
+.btn-primary .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.btn-secondary .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.btn-danger .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.sidebar-icon {
+    -fx-icon-color: #e94560;
+}
+
+.welcome-icon {
+    -fx-icon-color: #0f3460;
+}
+
+.portfolio-icon {
+    -fx-icon-color: #e94560;
+}
+
+.value-icon {
+    -fx-icon-color: #f39c12;
+}
+
+.status-icon {
+    -fx-icon-color: #2ecc71;
+}
+
+/* ==================== MODERN CHART STYLES ==================== */
+.chart-view {
+    -fx-background-color: #0a0e17;
+}
+
+.chart-header {
+    -fx-padding: 0 0 10 0;
+}
+
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.header-icon {
+    -fx-icon-color: #00d9ff;
+}
+
+/* Period buttons - pill style */
+.period-buttons {
+    -fx-background-color: #1a1f2e;
+    -fx-background-radius: 20;
+    -fx-padding: 3;
+}
+
+.period-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #666666;
+    -fx-padding: 8 18;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-min-width: 50px;
+    -fx-pref-width: 50px;
+}
+
+.period-btn:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.period-btn.active {
+    -fx-background-color: #00d9ff;
+    -fx-text-fill: #0a0e17;
+}
+
+.portfolio-select {
+    -fx-background-color: #1a1f2e;
+    -fx-background-radius: 8;
+    -fx-text-fill: #ffffff;
+}
+
+/* Stat cards - glassmorphism */
+.stats-row {
+    -fx-padding: 10 0;
+}
+
+.stat-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(26, 31, 46, 0.8), rgba(13, 17, 27, 0.9));
+    -fx-background-radius: 16;
+    -fx-padding: 20 24;
+    -fx-border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.stat-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #666666;
+    -fx-font-weight: bold;
+    -fx-text-transform: uppercase;
+}
+
+.stat-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.stat-value-large {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.stat-value.positive,
+.stat-value-large.positive {
+    -fx-text-fill: #00ff88;
+}
+
+.stat-value.negative,
+.stat-value-large.negative {
+    -fx-text-fill: #ff4757;
+}
+
+/* Chart container */
+.chart-card {
+    -fx-background-color: #0d111b;
+    -fx-background-radius: 16;
+    -fx-padding: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.03);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.chart-card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #888888;
+    -fx-padding: 0 0 15 0;
+}
+
+/* Line Chart - Clean minimal style */
+.main-chart {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 0 0;
+}
+
+.main-chart .chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.main-chart .chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.main-chart .chart-horizontal-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.03);
+    -fx-stroke-dash-array: 5 5;
+}
+
+.main-chart .chart-alternative-row-fill {
+    -fx-fill: transparent;
+}
+
+/* Hide axis lines */
+.main-chart .axis {
+    -fx-tick-mark-visible: false;
+    -fx-minor-tick-visible: false;
+}
+
+.main-chart .axis-label {
+    -fx-text-fill: transparent;
+}
+
+.main-chart .axis .tick-label {
+    -fx-text-fill: #555555;
+    -fx-font-size: 10px;
+}
+
+/* Line styling - gradient stroke */
+.main-chart .chart-series-line {
+    -fx-stroke: #00d9ff;
+    -fx-stroke-width: 3px;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: linear-gradient(to right, #00d9ff, #00ff88);
+    -fx-stroke-width: 2.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 217, 255, 0.5), 8, 0, 0, 0);
+}
+
+/* Area fill under line */
+.default-color0.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(0, 217, 255, 0.15), transparent);
+}
+
+/* Hide default chart symbols */
+.main-chart .chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Tooltip modern style */
+.chart-tooltip {
+    -fx-background-color: rgba(20, 24, 35, 0.95);
+    -fx-background-radius: 12;
+    -fx-padding: 12 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0, 0, 5);
+    -fx-border-color: rgba(0, 217, 255, 0.3);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+.tooltip-date {
+    -fx-font-size: 11px;
+    -fx-text-fill: #666666;
+}
+
+.tooltip-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ff88;
+}
+
+/* Pie chart - Modern donut style */
+.allocation-chart {
+    -fx-background-color: transparent;
+}
+
+.allocation-chart .chart-pie {
+    -fx-border-width: 0;
+    -fx-pie-color: #00d9ff;
+}
+
+.allocation-chart .default-color0.chart-pie {
+    -fx-pie-color: #00d9ff;
+}
+
+.allocation-chart .default-color1.chart-pie {
+    -fx-pie-color: #00ff88;
+}
+
+.allocation-chart .default-color2.chart-pie {
+    -fx-pie-color: #ff6b6b;
+}
+
+.allocation-chart .default-color3.chart-pie {
+    -fx-pie-color: #ffd93d;
+}
+
+.allocation-chart .default-color4.chart-pie {
+    -fx-pie-color: #c56cf0;
+}
+
+.allocation-chart .chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 0 0;
+}
+
+.allocation-chart .chart-legend-item {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 11px;
+}
+
+.allocation-chart .chart-legend-item-symbol {
+    -fx-background-radius: 4;
+}
+
+/* Loading state */
+.loading-text {
+    -fx-text-fill: #666666;
+    -fx-font-size: 13px;
+}
+
+.spinning {
+    -fx-icon-color: #00d9ff;
+}
+
+/* ==================== ASSET SELECTOR BAR ==================== */
+.asset-selector-bar {
+    -fx-padding: 8 0;
+}
+
+.selector-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 12px;
+    -fx-padding: 0 10 0 0;
+}
+
+.asset-btn {
+    -fx-background-color: #1a1f2e;
+    -fx-text-fill: #888888;
+    -fx-padding: 10 20;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+}
+
+.asset-btn:hover {
+    -fx-background-color: #252a3a;
+    -fx-text-fill: #ffffff;
+}
+
+.asset-btn.active {
+    -fx-background-color: linear-gradient(to right, #00d9ff, #00ff88);
+    -fx-text-fill: #0a0e17;
+}
+
+/* ==================== ASSET DETAILS PANEL ==================== */
+.asset-details {
+    -fx-padding: 15;
+}
+
+.asset-detail-name {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00d9ff;
+    -fx-padding: 0 0 10 0;
+}
+
+.asset-detail-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.asset-detail-value.positive {
+    -fx-text-fill: #00ff88;
+}
+
+.asset-detail-value.negative {
+    -fx-text-fill: #ff4757;
+}
+
+/* ==================== CHART SUBTITLE ==================== */
+.chart-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #555555;
+}
+
+/* ==================== CUSTOM TITLE BAR ==================== */
+.custom-title-bar {
+    -fx-background-color: #0a0e17;
+    -fx-padding: 8 15;
+}
+
+.title-bar-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #888888;
+}
+
+.title-bar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #888888;
+    -fx-padding: 5 12;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.title-bar-btn:hover {
+    -fx-background-color: #1a1f2e;
+}
+
+.title-bar-btn.close:hover {
+    -fx-background-color: #e94560;
+    -fx-text-fill: white;
+}
+
+/* ==================== ANALYSIS VIEW ==================== */
+.analysis-view {
+    -fx-background-color: #0f1419;
+}
+
+.section-card {
+    -fx-background-color: #1a1f2e;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00d9ff;
+}
+
+.section-icon {
+    -fx-icon-color: #00d9ff;
+}
+
+.filter-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 11px;
+}
+
+.whale-table {
+    -fx-background-color: transparent;
+}
+
+.whale-table .column-header {
+    -fx-background-color: #252a3a;
+}
+
+.whale-table .column-header .label {
+    -fx-text-fill: #888888;
+    -fx-font-weight: bold;
+}
+
+.whale-table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.whale-table .table-row-cell:odd {
+    -fx-background-color: #1a1f2e;
+}
+
+.whale-table .table-row-cell:selected {
+    -fx-background-color: #00d9ff33;
+}
+
+.whale-table .table-cell {
+    -fx-text-fill: #cccccc;
+    -fx-padding: 8;
+}
+
+/* ==================== PERIOD BUTTONS ==================== */
+.period-buttons {
+    -fx-background-color: #1a1f2e;
+    -fx-background-radius: 8;
+    -fx-padding: 4;
+}
+
+.period-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #888888;
+    -fx-padding: 8 15;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+}
+
+.period-btn:hover {
+    -fx-background-color: #252a3a;
+    -fx-text-fill: #ffffff;
+}
+
+.period-btn.active,
+.period-btn:focused {
+    -fx-background-color: #00d9ff;
+    -fx-text-fill: #0f1419;
+}
+
+/* ==================== CHART AXIS IMPROVEMENTS ==================== */
+.chart .axis {
+    -fx-tick-label-fill: #888888;
+    -fx-tick-label-font-size: 10px;
+}
+
+.chart .axis-label {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 11px;
+}
+
+.chart .axis-tick-mark {
+    -fx-stroke: #333333;
+}
+
+.chart .chart-horizontal-grid-lines {
+    -fx-stroke: #1a1f2e;
+}
+
+.chart .chart-vertical-grid-lines {
+    -fx-stroke: #1a1f2e;
+}

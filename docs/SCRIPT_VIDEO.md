@@ -1,0 +1,290 @@
+# 📹 Script Vidéo de Présentation
+
+## Durée Totale: ~12-15 minutes
+- **Partie 1: Démo App** (~6 min)
+- **Partie 2: Explication Code** (~6 min)
+
+---
+
+# 🎬 PARTIE 1: DÉMONSTRATION DE L'APPLICATION
+
+## INTRO (30 sec)
+**[WEBCAM - Ton visage]**
+
+- "Bonjour, je suis [Prénom] et je vais vous présenter PortfolioTracker"
+- "C'est une application de suivi de portefeuilles financiers"
+- "Elle permet de tracker ses cryptos, actions et ETFs en temps réel"
+- "Je vais d'abord vous montrer l'application en action"
+
+---
+
+## ÉCRAN PRINCIPAL (45 sec)
+**[ÉCRAN - App lancée, vue principale]**
+
+- "Voici l'écran principal"
+- "En haut, on a la toolbar avec les actions principales"
+- "À droite, le sélecteur de portfolio"
+- **[Clique sur le sélecteur]** "J'ai plusieurs portfolios déjà créés"
+- **[Sélectionne 'Crypto Hodler']** "Je sélectionne mon portfolio crypto"
+
+---
+
+## VUE PORTFOLIO (1 min)
+**[ÉCRAN - Portfolio view avec assets]**
+
+- "On voit tous mes assets: Bitcoin, Ethereum, Solana..."
+- "Les prix sont récupérés en temps réel via les APIs"
+- **[Pointe la colonne Value]** "La valeur actuelle de chaque asset"
+- **[Pointe la colonne P&L]** "Le profit ou la perte, en vert si positif, rouge si négatif"
+- **[Pointe le total en haut]** "Et ici le total du portfolio: 66 000 euros"
+- **[Pointe le P&L total]** "Avec un profit total de 36 000 euros, soit +193%"
+- "Toutes les valeurs sont automatiquement converties dans la devise de référence du portfolio, ici l'Euro"
+
+---
+
+## VUE GRAPHIQUES (1 min 30)
+**[Clique sur le bouton Charts]**
+
+- "Maintenant les graphiques"
+- **[Attend que ça charge]** "Le graphique montre l'évolution de la valeur sur le temps"
+- **[Clique 1M]** "Je peux voir sur 1 mois"
+- **[Clique 3M]** "3 mois"
+- **[Clique 1Y]** "Ou une année complète"
+- **[Pointe un flag/marqueur sur le graphique si visible]** "On peut aussi afficher des événements sur le graphique, comme un crash ou une décision de justice"
+- **[Pointe le Profit Days]** "Ici le pourcentage de jours en profit: 56%"
+- **[Clique sur BTC]** "Je peux aussi voir un asset individuel"
+- **[Pointe le PieChart]** "La répartition des assets en camembert"
+- **[Clique Compare All]** "Et ici, je peux comparer tous mes portfolios sur le même graphique"
+
+---
+
+## AJOUT D'ASSET (1 min)
+**[Reviens sur Portfolio view, clique Add Asset]**
+
+- "Pour ajouter un nouvel asset"
+- **[Tape "BTC" dans Ticker]** "Je tape le ticker, par exemple BTC"
+- **[Clique ailleurs ou sur Fetch]** "Et le prix actuel est récupéré automatiquement"
+- **[Montre le champ prix rempli]** "Voilà, 94 000 euros pour 1 Bitcoin"
+- **[Tape une quantité]** "Je mets la quantité que je possède"
+- "Je peux aussi entrer un prix personnalisé si c'est un achat passé"
+- **[Cancel]** "Je vais annuler pour l'instant"
+
+---
+
+## FONCTIONNALITÉS AVANCÉES (45 sec)
+**[Reviens sur la vue Portfolio]**
+
+- **[Clic droit sur le portfolio actuel ou bouton Clone]** "Je peux aussi cloner un portfolio existant"
+- "C'est utile pour faire des simulations sans modifier l'original"
+- **[Clique sur Import ou menu File -> Import]** "Et surtout, je peux importer mon historique depuis Coinbase"
+- **[Montre le fichier CSV ou la fenêtre d'import]** "Via un fichier CSV exporté depuis la plateforme"
+- "Ça évite de ressaisir manuellement des centaines de transactions"
+
+---
+
+## CHIFFREMENT (30 sec)
+**[Clique sur le cadenas ou Settings]**
+
+- "L'application propose aussi le chiffrement des données"
+- "Je peux définir une passphrase"
+- "Mes portfolios seront alors chiffrés sur le disque"
+- "Personne ne peut les lire sans le mot de passe"
+
+---
+
+## WHALE ALERTS (30 sec)
+**[Clique sur Analysis]**
+
+- "Dernière fonctionnalité: les Whale Alerts"
+- "Ce sont les grosses transactions crypto, plus d'un million de dollars"
+- "Récupérées via l'API Whale Alert"
+- **[Pointe les stats]** "On voit le volume des dernières 24h et le top token"
+
+---
+
+## TRANSITION (15 sec)
+**[WEBCAM - Ton visage]**
+
+- "Voilà pour la démonstration de l'application"
+- "Maintenant, regardons comment c'est construit"
+- "Je vais vous montrer 3 points clés du code"
+
+---
+
+# 🎬 PARTIE 2: ENGINEERING & ARCHITECTURE (6-7 min)
+
+> **Note:** Ce script adopte un ton "Ingénieur Senior". Il met en avant les choix d'architecture, les design patterns et la gestion de la complexité.
+
+---
+
+## INTRO ARCHITECTURE (1 min)
+**[ÉCRAN - IDE Vue globale, tous les packages réduits sauf la racine]**
+
+Dis:
+> "Passons à l'ingénierie sous-jacente. Pour ce projet, mon objectif était de concevoir une architecture **robuste, maintenable et scalable**."
+>
+> "J'ai opté pour une architecture **MVC stricte** afin de garantir une séparation claire des responsabilités (Separation of Concerns)."
+
+**[ACTION: Déploie les packages `model`, `view`, `controller` un par un]**
+
+Dis:
+> "Cette structure découple la logique métier de l'interface utilisateur. Cela permet non seulement de faciliter les tests unitaires, mais aussi d'envisager une migration future de la vue (par exemple vers le Web) sans réécrire le cœur logique."
+
+---
+
+## DEEP DIVE 1: DESIGN PATTERNS & SERVICES (2 min)
+
+Dis:
+> "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton**."
+> "Pour garantir un point d'accès centralisé et thread-safe."
+
+**[CODE À MONTRER:]**
+```java
+public class PortfolioService {
+    // Instance unique (Singleton)
+    private static PortfolioService instance;
+
+    // Constructeur privé
+    private PortfolioService() { ... }
+
+    // Point d'accès global
+    public static PortfolioService getInstance() {
+        if (instance == null) {
+            instance = new PortfolioService();
+        }
+        return instance;
+    }
+}
+```
+
+Dis:
+> "J'utilise aussi l'API **Stream** de Java pour manipuler les données."
+
+**[CODE À MONTRER:]**
+```java
+// Exemple Stream API
+public double getTotalValue() {
+    return assets.stream()
+        .mapToDouble(asset -> asset.getValue())
+        .sum();
+}
+```
+
+---
+
+## DEEP DIVE 2: CONCURRENCE & MULTITHREADING (2 min)
+
+Dis:
+> "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal."
+> "Voici la solution technique avec une `Task` JavaFX."
+
+**[CODE À MONTRER:]**
+```java
+// Utilisation de Task pour ne pas bloquer l'UI
+Task<Map<String, Double>> task = new Task<>() {
+    @Override
+    protected Map<String, Double> call() {
+        // Exécuté dans un thread séparé (Background)
+        return marketDataService.getPrices(tickers);
+    }
+};
+
+// Callback sur le thread JavaFX (UI Update)
+task.setOnSucceeded(e -> updateCharts(task.getValue()));
+
+new Thread(task).start();
+```
+
+Dis:
+> "La méthode `call` est en arrière-plan. `setOnSucceeded` met à jour l'interface. C'est fluide."
+
+---
+
+## DEEP DIVE 3: OPTIMISATION (1 min 30)
+
+Dis:
+> "Pour l'optimisation, j'utilise une stratégie de cache fichier."
+> "Complexité O(1) si le fichier existe."
+
+**[CODE À MONTRER:]**
+```java
+public Map<String, Double> getCachedPrices(String ticker) {
+    File cacheFile = new File(CACHE_DIR, ticker + ".json");
+    
+    // Stratégie Write-Through
+    if (cacheFile.exists()) {
+        // O(1) - Lecture immédiate
+        return loadFromJson(cacheFile); 
+    }
+    
+    // Latence réseau
+    return fetchFromApi(ticker);
+}
+```
+
+Dis:
+> "C'est ce qui permet à l'application de démarrer instantanément."
+
+---
+
+## DEEP DIVE 4: STRATÉGIE DE QUALITÉ (1 min)
+**[ÉCRAN - Ouvre `AssetTest.java` ou l'onglet de résultats des tests]**
+
+Dis:
+> "Évidemment, une architecture robuste ne vaut rien sans une stratégie de qualité."
+>
+> "J'ai intégré **JUnit 5** pour garantir la fiabilité des composants critiques, notamment le moteur de calcul financier (`Asset`) et le module de sécurité (`EncryptionService`)."
+
+**[ACTION: Lance les tests (clic droit sur dossier test -> Run 'All Tests')]**
+
+Dis:
+> "L'architecture découplée que j'ai présentée permet de tester la logique métier en isolation, sans dépendre de l'interface graphique. C'est ce qu'on appelle du code **Testable by Design**. Cela me permet de garantir la non-régression sur les calculs sensibles de P&L et de chiffrement."
+
+---
+
+## CONCLUSION TECHNIQUE (30 sec)
+**[WEBCAM - Ton visage, regard direct et confiant]**
+
+Dis:
+> "En conclusion, PortfolioTracker n'est pas juste une interface graphique. C'est une démonstration d'architecture logicielle rigoureuse :"
+> "1. Une application stricte des principes SOLID via le MVC."
+> "2. Une maîtrise de la concurrence pour une fluidité native."
+> "3. Une optimisation des ressources via un caching local."
+> "4. Une fiabilité garantie par des tests unitaires critiques."
+>
+> "Je suis prêt pour vos questions."
+
+---
+
+# ✅ CHECKLIST AVANT DE FILMER
+
+## Préparation App
+- [ ] App lancée avec démo data chargée
+- [ ] Internet connecté
+- [ ] Fenêtre bien dimensionnée
+- [ ] Pas de notifications système
+
+## Préparation IDE
+- [ ] Fichiers prêts à montrer:
+  - [ ] Arborescence projet
+  - [ ] `Portfolio.java`
+  - [ ] `ChartController.java` (ligne ~94)
+  - [ ] `CacheService.java`
+  - [ ] Dossier `data/cache/`
+
+## Enregistrement
+- [ ] Micro testé
+- [ ] OBS/Logiciel d'enregistrement configuré
+- [ ] Webcam positionnée
+
+---
+
+# 💡 CONSEILS
+
+| ❌ Évite | ✅ Préfère |
+|----------|-----------|
+| "Euh..." "Donc..." | Pause silencieuse |
+| Parler trop vite | Prendre son temps |
+| Tout expliquer | Montrer les points importants |
+| Lire mot à mot | Reformuler naturellement |
+| Se répéter | Avancer |

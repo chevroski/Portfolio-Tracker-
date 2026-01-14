@@ -1,0 +1,78 @@
+{
+  "id": "demo-trader-002",
+  "name": "Trader Actif",
+  "description": "Active trading portfolio with multiple trades",
+  "currency": "EUR",
+  "createdAt": "2024-02-01T08:00:00",
+  "assets": [
+    {
+      "id": "asset-btc-002",
+      "ticker": "BTC",
+      "name": "Bitcoin",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "tx-101",
+          "type": "BUY",
+          "quantity": 0.3,
+          "pricePerUnit": 35000.0,
+          "date": "2024-02-05T10:00:00",
+          "fees": 10.5,
+          "notes": "BTC entry"
+        },
+        {
+          "id": "tx-102",
+          "type": "SELL",
+          "quantity": 0.1,
+          "pricePerUnit": 42000.0,
+          "date": "2024-03-15T14:30:00",
+          "fees": 4.2,
+          "notes": "Partial profit taking"
+        }
+      ]
+    },
+    {
+      "id": "asset-ltc-001",
+      "ticker": "LTC",
+      "name": "Litecoin",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "tx-103",
+          "type": "BUY",
+          "quantity": 10.0,
+          "pricePerUnit": 70.0,
+          "date": "2024-02-20T11:30:00",
+          "fees": 0.7,
+          "notes": "LTC position"
+        }
+      ]
+    },
+    {
+      "id": "asset-link-001",
+      "ticker": "LINK",
+      "name": "Chainlink",
+      "type": "CRYPTO",
+      "transactions": [
+        {
+          "id": "tx-104",
+          "type": "BUY",
+          "quantity": 100.0,
+          "pricePerUnit": 15.0,
+          "date": "2024-03-01T09:00:00",
+          "fees": 1.5,
+          "notes": "LINK accumulation"
+        },
+        {
+          "id": "tx-105",
+          "type": "REWARD",
+          "quantity": 5.0,
+          "pricePerUnit": 18.0,
+          "date": "2024-04-01T00:00:00",
+          "fees": 0.0,
+          "notes": "Staking reward"
+        }
+      ]
+    }
+  ]
+}
