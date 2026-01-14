@@ -657,7 +657,7 @@ public class ChartController {
                     
                     if (quantity > 0) {
                         List<PricePoint> history = marketDataService.getPriceHistory(
-                            ticker, asset.getType(), portfolio.getCurrency(), currentDays
+                            ticker, asset.getType(), currency, currentDays
                         );
                         
                         if (!history.isEmpty()) {
@@ -701,12 +701,13 @@ public class ChartController {
         double totalValue = 0;
         double totalInvested = 0;
         
+        String currency = marketDataService.getReferenceCurrency();
         for (Portfolio portfolio : portfolios) {
             for (Asset asset : portfolio.getAssets()) {
                 totalInvested += asset.getTotalInvested();
                 try {
                     double price = marketDataService.getPrice(
-                        asset.getTicker(), asset.getType(), portfolio.getCurrency()
+                        asset.getTicker(), asset.getType(), currency
                     );
                     totalValue += asset.getTotalQuantity() * price;
                 } catch (Exception e) {
