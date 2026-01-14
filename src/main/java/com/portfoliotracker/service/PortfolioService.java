@@ -163,7 +163,12 @@ public class PortfolioService {
 
     private double parseDouble(String value) {
         if (value == null || value.isEmpty()) return 0;
-        value = value.replace(",", ".").replaceAll("[^0-9.]", "");
+        value = value.trim().replaceAll("[^0-9,.-]", "");
+        if (value.contains(",") && value.contains(".")) {
+            value = value.replace(",", "");
+        } else if (value.contains(",")) {
+            value = value.replace(",", ".");
+        }
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
