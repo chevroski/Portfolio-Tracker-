@@ -820,6 +820,12 @@
     -fx-stroke: #1a1f2e;
 }
 
+.analysis-meter {
+    -fx-accent: #00ff88;
+    -fx-control-inner-background: #252a3a;
+    -fx-background-radius: 8;
+}
+
 .chart .chart-vertical-grid-lines {
     -fx-stroke: #1a1f2e;
 }

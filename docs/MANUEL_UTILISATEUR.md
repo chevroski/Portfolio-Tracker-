@@ -156,6 +156,19 @@ Cliquez sur **Charts** dans la toolbar:
 
 ---
 
+## 📊 Analysis
+
+### Whale Alerts
+- Liste des transactions > $1M
+- Statistiques 24h: volume, nombre de transactions, top token, sentiment
+
+### Portfolio Analysis
+- **Profit vs Loss Days**: pourcentage de jours en profit vs en perte (30 jours)
+- **Best Day / Worst Day**: meilleures et pires variations journalières
+- Sélection du portfolio via le menu déroulant
+
+---
+
 ## 🔧 Fonctionnalités Techniques
 
 ### APIs Utilisées

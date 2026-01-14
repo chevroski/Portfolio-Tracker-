@@ -100,6 +100,13 @@
 - "Récupérées via l'API Whale Alert"
 - **[Pointe les stats]** "On voit le volume des dernières 24h et le top token"
 
+## ANALYSE DU PORTFOLIO (30 sec)
+**[Toujours dans Analysis]**
+
+- "Juste en dessous, on a l'analyse du portfolio"
+- **[Pointe le graphique barre/ratio]** "Ici, le ratio de jours en profit vs en perte sur 30 jours"
+- **[Pointe les cartes Best/Worst Day]** "Et là, le meilleur et le pire jour du mois"
+
 ---
 
 ## TRANSITION (15 sec)

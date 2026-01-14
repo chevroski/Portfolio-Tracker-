@@ -63,4 +63,32 @@
             <Label fx:id="sentimentLabel" text="Bullish" styleClass="stat-value positive"/>
         </VBox>
     </HBox>
+
+    <VBox styleClass="section-card" spacing="15">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <FontIcon iconLiteral="fas-chart-area" iconSize="20" styleClass="section-icon"/>
+            <Label text="Portfolio Analysis" styleClass="section-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="portfolioCombo" prefWidth="200" styleClass="portfolio-select"/>
+        </HBox>
+        <VBox spacing="10">
+            <Label text="PROFIT VS LOSS DAYS" styleClass="stat-label"/>
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label fx:id="profitDaysLabel" text="—" styleClass="stat-value positive"/>
+                <ProgressBar fx:id="profitLossBar" prefWidth="260" styleClass="analysis-meter"/>
+                <Label fx:id="lossDaysLabel" text="—" styleClass="stat-value negative"/>
+            </HBox>
+            <Label fx:id="profitLossSummaryLabel" text="No portfolio data" styleClass="chart-subtitle"/>
+        </VBox>
+        <HBox spacing="15">
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="BEST DAY" styleClass="stat-label"/>
+                <Label fx:id="bestDayLabel" text="—" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="WORST DAY" styleClass="stat-label"/>
+                <Label fx:id="worstDayLabel" text="—" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+    </VBox>
 </VBox>

@@ -19,7 +19,7 @@ L'application couvre l'ensemble des besoins essentiels d'un investisseur particu
 | :--- | :--- | :--- | :---: |
 | **Core** | Portfolio Management | Création/Édition de multiples portefeuilles | ✅ |
 | **Core** | Asset Tracking | Support Crypto (CoinGecko) & Stocks (Yahoo) | ✅ |
-| **Analysis** | Performance Metrics | Calcul P&L (Profit & Loss), ROI global | ✅ |
+| **Analysis** | Performance Metrics | Jours en profit vs perte, meilleur/pire jour, P&L global | ✅ |
 | **UI/UX** | Dynamic Charts | Graphiques interactifs (1M, 3M, 1Y) | ✅ |
 | **Data** | Auto-Price Fetch | Récupération automatique du prix à l'ajout | ✅ |
 | **Security** | Local Encryption | Chiffrement des données sensibles (XOR) | ✅ |
