@@ -15,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
 
@@ -417,34 +418,29 @@ public class ChartController {
                 // Store event for tooltip
                 final Event eventRef = event;
                 
-                // Apply styling and tooltip when node is created
-                point.nodeProperty().addListener((obs, oldNode, newNode) -> {
-                    if (newNode != null) {
-                        // Larger, more visible marker (Red Dot)
-                        newNode.setStyle(
-                            "-fx-background-color: #ff4444, white;" +
-                            "-fx-background-insets: 0, 2;" +
-                            "-fx-background-radius: 8px;" +
-                            "-fx-padding: 8px;" +
-                            "-fx-cursor: hand;"
-                        );
-                        
-                        // Create detailed tooltip
-                        Tooltip tooltip = new Tooltip(eventRef.getTitle());
-                        tooltip.setStyle("-fx-font-size: 12px; -fx-background-color: #2c2c2c; -fx-text-fill: white;");
-                        Tooltip.install(newNode, tooltip);
-                        
-                        // Hover effect
-                        newNode.setOnMouseEntered(e -> {
-                            newNode.setScaleX(1.2);
-                            newNode.setScaleY(1.2);
-                        });
-                        newNode.setOnMouseExited(e -> {
-                            newNode.setScaleX(1.0);
-                            newNode.setScaleY(1.0);
-                        });
-                    }
+                StackPane marker = new StackPane();
+                marker.setStyle(
+                    "-fx-background-color: #ff4444, white;" +
+                    "-fx-background-insets: 0, 2;" +
+                    "-fx-background-radius: 8px;" +
+                    "-fx-padding: 8px;" +
+                    "-fx-cursor: hand;"
+                );
+
+                Tooltip tooltip = new Tooltip(eventRef.getTitle());
+                tooltip.setStyle("-fx-font-size: 12px; -fx-background-color: #2c2c2c; -fx-text-fill: white;");
+                Tooltip.install(marker, tooltip);
+
+                marker.setOnMouseEntered(e -> {
+                    marker.setScaleX(1.2);
+                    marker.setScaleY(1.2);
                 });
+                marker.setOnMouseExited(e -> {
+                    marker.setScaleX(1.0);
+                    marker.setScaleY(1.0);
+                });
+
+                point.setNode(marker);
             }
         }
         
