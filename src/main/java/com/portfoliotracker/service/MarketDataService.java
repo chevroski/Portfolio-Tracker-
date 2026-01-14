@@ -81,6 +81,9 @@ public class MarketDataService {
             price = coinGeckoClient.getCurrentPrice(coinId, currency);
         } else {
             price = yahooClient.getCurrentPrice(ticker);
+            if (price > 0 && !currency.equalsIgnoreCase("USD")) {
+                price = exchangeClient.convert(price, "USD", currency);
+            }
         }
 
         if (price > 0) {
@@ -107,6 +110,12 @@ public class MarketDataService {
             history = coinGeckoClient.getPriceHistory(coinId, currency, days);
         } else {
             history = yahooClient.getPriceHistory(ticker, days);
+            if (history != null && !history.isEmpty() && !currency.equalsIgnoreCase("USD")) {
+                double rate = exchangeClient.getRate("USD", currency);
+                for (PricePoint point : history) {
+                    point.setPrice(point.getPrice() * rate);
+                }
+            }
         }
         
         if (history != null && !history.isEmpty()) {
@@ -166,4 +175,3 @@ public class MarketDataService {
         priceCache.clear();
     }
 }
-
