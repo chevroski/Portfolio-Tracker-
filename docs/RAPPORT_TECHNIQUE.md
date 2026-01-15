@@ -109,7 +109,7 @@ Objet simple pour l’historique des prix (timestamp + prix).
 - **Classe** : `model/PricePoint.java`
 
 > **Image à insérer dans cette section :**
-> - **Figure 6** — UML classes (Portfolio, Asset, Transaction, Event, PricePoint).
+> - **Figure 6** — UML classes (Portfolio, Asset, Transaction, Event).
 
 ---
 
@@ -277,21 +277,27 @@ Les appels réseau sont exécutés dans des **Tasks JavaFX** afin de préserver 
 ## 11. Tests
 
 ### 11.1 Tests unitaires
-- `AssetTest` : calculs financiers
-- `EncryptionServiceTest` : chiffrement/déchiffrement
+- **Framework** : JUnit 5.  
+- **Couverture** : calculs financiers (Asset) et chiffrement (EncryptionService).  
+- **Références** : `AssetTest`, `EncryptionServiceTest`.
 
 ### 11.2 Exécution
 ```bash
 mvn test
 ```
 
+### 11.3 Limites de couverture
+- Contrôleurs JavaFX non testés (nécessiterait TestFX).  
+- Services dépendant du réseau non testés automatiquement.
+
 ---
 
 ## 12. Limites connues
-- **CoinGeckoClient** utilise Binance (nom trompeur).
-- **Cache disque** limité à USD uniquement.
-- **Encryption XOR** non sécurisé pour production.
-- **API Yahoo Finance** non officielle (peut changer).
+- **CoinGeckoClient** utilise Binance (nom trompeur).  
+- **Cache disque** limité à USD uniquement.  
+- **Encryption XOR** non sécurisé pour production.  
+- **API Yahoo Finance** non officielle (peut changer).  
+- **Charts** : valeur calculée à quantités actuelles (approximation).
 
 ---
 
@@ -306,9 +312,10 @@ mvn test
 ## Annexes
 
 ### A. Exemple d’extrait de code
-> *Insérer ici un extrait court de `ChartController` (chargement historique + Task)*
+> *Insérer ici un extrait court de `ChartController` (chargement historique + Task).*
 
 ### B. Diagrammes et captures
-- Diagramme MVC global
-- Diagramme UML simplifié des modèles
-- Captures d’écran des vues (Main, Portfolio, Charts, Analysis)
+- Diagramme MVC global  
+- UML classes (fourni)  
+- UML séquences (import CSV + chiffrement)  
+- Captures d’écran des vues (Main, Portfolio, Charts, Analysis, Passphrase)
