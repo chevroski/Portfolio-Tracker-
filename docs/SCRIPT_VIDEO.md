@@ -128,25 +128,19 @@
 **[ÉCRAN - IDE Vue globale, tous les packages réduits sauf la racine]**
 
 Dis:
-> "Passons à l'ingénierie sous-jacente. Pour ce projet, mon objectif était de concevoir une architecture **robuste, maintenable et scalable**."
->
-> "J'ai opté pour une architecture **MVC stricte** afin de garantir une séparation claire des responsabilités (Separation of Concerns)."
+> "Passons à l'ingénierie sous-jacente. Pour ce projet, mon objectif était de concevoir une architecture **robuste, maintenable et scalable**. J'ai donc opté pour une architecture **MVC stricte** afin de garantir une séparation claire des responsabilités (Separation of Concerns)."
 
 **[ACTION: Déploie les packages `model`, `view`, `controller` un par un]**
 
 Dis:
-> "Cette structure découple la logique métier de l'interface utilisateur. Cela permet non seulement de faciliter les tests unitaires, mais aussi d'envisager une migration future de la vue (par exemple vers le Web) sans réécrire le cœur logique."
+> "Cette structure découple la logique métier de l'interface utilisateur. Cela permet de faciliter les tests unitaires et d'envisager une migration future de la vue, par exemple vers le Web, sans réécrire le cœur logique."
 
 ---
 
 ## DEEP DIVE 1: DESIGN PATTERNS & SERVICES (2 min)
 
 Dis:
-> "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton**."
-> "Pour garantir un point d'accès centralisé et thread-safe."
-> "C'est pratique ici car chaque service orchestre une responsabilité unique."
-> "Par exemple `PortfolioService` centralise le CRUD, la persistance et l'accès aux prix."
-> "Du coup, tous les contrôleurs réutilisent la même logique métier."
+> "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton** afin de garantir un point d'accès centralisé et thread-safe. C'est pratique ici car chaque service orchestre une responsabilité unique : par exemple, `PortfolioService` centralise le CRUD, la persistance et l'accès aux prix, ce qui permet à tous les contrôleurs de réutiliser la même logique métier."
 
 **[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/PortfolioService.java` lignes 18-33]**
 ```java
@@ -170,9 +164,7 @@ public class PortfolioService {
 ```
 
 Dis:
-> "J'utilise aussi l'API **Stream** de Java pour manipuler les données."
-> "Ça réduit le bruit et rend les agrégations lisibles."
-> "Ici, on calcule en 3 étapes: somme du volume, regroupement par token, puis sélection du top."
+> "J'utilise aussi l'API **Stream** de Java pour manipuler les données. Ça réduit le bruit et rend les agrégations lisibles : ici, on calcule la somme du volume, on regroupe par token, puis on sélectionne le top."
 
 **[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/AnalysisController.java` lignes 87-105]**
 ```java
@@ -190,66 +182,10 @@ private void updateStats(List<WhaleAlertClient.WhaleTransaction> transactions) {
 }
 ```
 
----
-
-## DEEP DIVE 1B: MODÈLE & CALCULS FINANCIERS (1 min 30)
-
-Dis:
-> "Le cœur du projet, c'est le modèle de données."
-> "Chaque `Asset` contient l'historique des transactions, et on en déduit les métriques."
-> "Ces calculs sont concentrés dans le modèle pour éviter toute duplication côté UI."
-
-**[CODE À MONTRER: `src/main/java/com/portfoliotracker/model/Asset.java` lignes 37-70]**
-```java
-public double getTotalQuantity() {
-    double total = 0;
-    for (Transaction t : transactions) {
-        if (t.getType() == TransactionType.BUY || t.getType() == TransactionType.REWARD) {
-            total += t.getQuantity();
-        } else if (t.getType() == TransactionType.SELL) {
-            total -= t.getQuantity();
-        }
-    }
-    return total;
-}
-
-public double getAverageBuyPrice() {
-    double totalCost = 0;
-    double totalQuantity = 0;
-    for (Transaction t : transactions) {
-        if (t.getType() == TransactionType.BUY) {
-            totalCost += t.getQuantity() * t.getPricePerUnit();
-            totalQuantity += t.getQuantity();
-        }
-    }
-    if (totalQuantity == 0) return 0;
-    return totalCost / totalQuantity;
-}
-
-public double getTotalInvested() {
-    double total = 0;
-    for (Transaction t : transactions) {
-        if (t.getType() == TransactionType.BUY) {
-            total += t.getTotalCost();
-        }
-    }
-    return total;
-}
-```
-
-Dis:
-> "L'avantage, c'est que chaque écran réutilise la même source de vérité."
-> "Ça garantit des chiffres cohérents entre le portfolio, les charts et l'analyse."
-
----
-
 ## DEEP DIVE 2: CONCURRENCE & MULTITHREADING (2 min)
 
 Dis:
-> "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal."
-> "Voici la solution technique avec une `Task` JavaFX."
-> "Je récupère les prix en arrière-plan et je mets à jour l'UI uniquement à la fin."
-> "En cas d'erreur réseau, je sécurise avec une valeur 0 et l'app reste fluide."
+> "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal. Voici la solution technique avec une `Task` JavaFX : je récupère les prix en arrière-plan et je mets à jour l'UI uniquement à la fin. En cas d'erreur réseau, je sécurise avec une valeur 0 et l'app reste fluide."
 
 **[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/PortfolioController.java` lignes 92-123]**
 ```java
@@ -279,18 +215,14 @@ private void loadPricesAsync() {
 ```
 
 Dis:
-> "La méthode `call` est en arrière-plan. `setOnSucceeded` met à jour l'interface."
-> "C'est ce qui évite les freezes et garantit une UX agréable."
+> "La méthode `call` est en arrière-plan, puis `setOnSucceeded` met à jour l'interface. C'est ce qui évite les freezes et garantit une UX agréable."
 
 ---
 
 ## DEEP DIVE 3: OPTIMISATION & CACHE (2 min)
 
 Dis:
-> "Pour l'optimisation, j'utilise une stratégie de cache fichier."
-> "Complexité O(1) si le fichier existe."
-> "Il y a un cache mémoire + un cache disque JSON."
-> "Le cache disque évite de redemander les prix historiques, qui ne changent pas."
+> "Pour l'optimisation, j'utilise une stratégie de cache fichier, avec une complexité O(1) si le fichier existe. On a un cache mémoire et un cache disque JSON : le cache disque évite de redemander les prix historiques, qui ne changent pas."
 
 **[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/CacheService.java` lignes 45-58]**
 ```java
@@ -312,8 +244,7 @@ public Optional<Double> getCachedPrice(String ticker, LocalDate date) {
 ```
 
 Dis:
-> "C'est ce qui permet à l'application de démarrer instantanément."
-> "En plus, le `MarketDataService` garde un cache court terme pour éviter les appels répétés."
+> "C'est ce qui permet à l'application de démarrer instantanément, et le `MarketDataService` garde un cache court terme pour éviter les appels répétés."
 
 **[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/MarketDataService.java` lignes 60-97]**
 ```java
@@ -356,8 +287,7 @@ public double getPrice(String ticker, AssetType type, String currency) {
 ```
 
 Dis:
-> "On a donc un cache court terme en mémoire et un cache long terme sur disque."
-> "C'est ce qui garantit performance et stabilité."
+> "On a donc un cache court terme en mémoire et un cache long terme sur disque. C'est ce qui garantit performance et stabilité."
 
 ---
 
@@ -401,7 +331,6 @@ Dis:
 ## Préparation IDE
 - [ ] Fichiers prêts à montrer:
   - [ ] Arborescence projet
-  - [ ] `Asset.java`
   - [ ] `Portfolio.java`
   - [ ] `ChartController.java` (ligne ~94)
   - [ ] `CacheService.java`
