@@ -1,0 +1,222 @@
+# Rapport Technique — PortfolioTracker
+
+**Auteur :** [Ton Nom]  
+**Date :** Janvier 2026  
+**Module :** II.1102 — Programmation Java Avancée  
+**Version :** 1.0
+
+---
+
+## 1. Introduction
+PortfolioTracker est une application desktop JavaFX permettant de suivre un ou plusieurs portefeuilles d’actifs (crypto et actions) avec des graphiques, des analyses de performance, un import CSV et une persistance locale. Le but de ce document est de décrire **l’implémentation réelle** du projet (architecture, services, APIs, persistance, tests) de façon claire et professionnelle.
+
+---
+
+## 2. Périmètre & Fonctionnalités livrées
+
+### 2.1 Fonctionnalités principales
+- **Gestion multi-portfolios** : création, suppression, clonage.  
+- **Gestion d’assets** : ajout d’actifs, transactions BUY/SELL/REWARD/CONVERT.  
+- **Graphiques** : évolution de la valeur + allocation en camembert.  
+- **Import CSV Coinbase** : parsing des transactions et création d’actifs.  
+- **Persistance locale JSON** : sauvegarde automatique.  
+- **Devise de référence** : conversion EUR/USD/GBP/CHF/JPY.  
+
+### 2.2 Fonctionnalités avancées
+- **Events** sur les graphiques (crash, hack, décision).  
+- **Analysis** : Profit vs Loss days + Best/Worst day.  
+- **Whale Alerts** : transactions > $1M (API WhaleAlert ou fallback mock).  
+- **Chiffrement local** (XOR) activable par passphrase.
+
+---
+
+## 3. Architecture logicielle
+Le projet suit une architecture **MVC stricte** :
+
+- **Model** : objets métier simples (`Portfolio`, `Asset`, `Transaction`, `Event`).  
+- **View** : FXML + CSS (JavaFX).  
+- **Controller** : orchestration UI et appel aux services.  
+- **Service Layer** : logique métier et accès données.  
+- **API Layer** : clients HTTP externes.
+
+> **Insertion recommandée :** *Diagramme MVC / diagramme des packages* (figure 1)
+
+---
+
+## 4. Modèle de données
+
+### 4.1 Portfolio
+Un portefeuille contient un nom, une devise de référence et une liste d’actifs. Il supporte le clonage (deep copy).  
+- Classe : `model/Portfolio.java`
+
+### 4.2 Asset
+Un actif contient un ticker, un type (STOCK/CRYPTO) et une liste de transactions.  
+- Classe : `model/Asset.java`
+
+### 4.3 Transaction
+Chaque transaction garde type, quantité, prix, date et frais.  
+- Classe : `model/Transaction.java`
+
+### 4.4 Event
+Un événement peut être global ou attaché à un portefeuille.  
+- Classe : `model/Event.java`
+
+### 4.5 PricePoint
+Objet simple pour l’historique de prix (timestamp + prix).  
+- Classe : `model/PricePoint.java`
+
+> **Insertion recommandée :** *Diagramme UML simplifié des entités* (figure 2)
+
+---
+
+## 5. Services (logique métier)
+
+### 5.1 PortfolioService
+- CRUD de portfolios
+- Ajout d’actifs / transactions
+- Clonage
+- Import CSV Coinbase
+
+**Classe :** `service/PortfolioService.java`
+
+### 5.2 MarketDataService
+- Façade vers crypto/stocks
+- Cache mémoire (TTL) + cache disque (USD seulement)
+- Conversion devise
+
+**Classe :** `service/MarketDataService.java`
+
+### 5.3 PersistenceService
+- Sérialisation JSON via Gson
+- Fichiers `data/portfolios/*.json` ou `*.json.enc` si chiffré
+
+**Classe :** `service/PersistenceService.java`
+
+### 5.4 EncryptionService
+- Chiffrement XOR (démonstration académique)
+- Activé via la passphrase au lancement
+
+**Classe :** `service/EncryptionService.java`
+
+### 5.5 CacheService
+- Cache disque des prix par ticker et date
+- Stocké dans `data/cache/`
+
+**Classe :** `service/CacheService.java`
+
+### 5.6 EventService
+- Gestion des événements pour les charts
+
+**Classe :** `service/EventService.java`
+
+### 5.7 AnalysisService
+- ROI, PnL, allocation
+- Périodes profitables/déficitaires
+
+**Classe :** `service/AnalysisService.java`
+
+---
+
+## 6. APIs externes
+
+### 6.1 Crypto (Binance via CoinGeckoClient)
+Le client nommé `CoinGeckoClient` interroge **l’API Binance** pour :
+- Prix actuels (`/ticker/price`)
+- Historique (`/klines`)
+
+### 6.2 Actions (Yahoo Finance)
+Utilisation d’un endpoint Yahoo non-officiel :
+- `query1.finance.yahoo.com/v8/finance/chart/{symbol}`
+
+### 6.3 Devises (ExchangeRate)
+Conversion entre devises par `api.exchangerate-api.com`.
+
+### 6.4 Whale Alerts
+Utilisation de `api.whale-alert.io` avec fallback sur données mockées.
+
+---
+
+## 7. Interface utilisateur (JavaFX)
+
+### 7.1 Écrans principaux
+- **Main** : toolbar + sidebar portfolios
+- **Portfolio view** : table assets + P&L
+- **Charts view** : line chart + pie chart
+- **Analysis view** : whale alerts + stats
+- **Passphrase dialog** : chiffrement
+
+**Fichiers FXML** : `main.fxml`, `portfolio-view.fxml`, `chart-view.fxml`, `analysis-view.fxml`, `passphrase-dialog.fxml`.
+
+> **Insertion recommandée :** captures d’écran des vues principales (figures 3-6)
+
+---
+
+## 8. Concurrence & performance
+Les appels API sont exécutés dans des **Tasks JavaFX** pour ne pas bloquer l’UI :
+- `PortfolioController` (chargement prix)
+- `ChartController` (historique)
+- `AnalysisController` (whale alerts + stats)
+
+---
+
+## 9. Persistance & chiffrement
+
+- Les données sont stockées en JSON dans `data/portfolios/`.
+- Si chiffrement activé, sauvegarde sous `*.json.enc`.
+- Le chiffrement est un **XOR** simple (objectif pédagogique, pas sécurité production).
+
+---
+
+## 10. Analyse & statistiques
+
+### 10.1 Charts
+- Graphique de valeur sur 1W / 1M / 3M / 1Y
+- Sélection d’un asset individuel
+- Mode “Compare All” pour multi-portfolio
+
+### 10.2 Analysis
+- Whale Alerts (transactions > $1M)
+- Profit vs Loss days (30 jours)
+- Best/Worst day
+
+---
+
+## 11. Tests
+
+### 11.1 Tests unitaires
+- `AssetTest` : calculs financiers
+- `EncryptionServiceTest` : chiffrement/déchiffrement
+
+### 11.2 Exécution
+```bash
+mvn test
+```
+
+---
+
+## 12. Limites connues
+- **CoinGeckoClient** utilise Binance (nom trompeur).
+- **Cache disque** limité à USD uniquement.
+- **Encryption XOR** non sécurisé pour production.
+- **API Yahoo Finance** non officielle (peut changer).
+
+---
+
+## 13. Pistes d’évolution
+- Ajout d’un vrai chiffrement (AES-256)
+- Historique multi-devises en cache
+- Tests UI automatisés (TestFX)
+- Export PDF/CSV
+
+---
+
+## Annexes
+
+### A. Exemple d’extrait de code
+> *Insérer ici un extrait court de `ChartController` (chargement historique + Task)*
+
+### B. Diagrammes et captures
+- Diagramme MVC global
+- Diagramme UML simplifié des modèles
+- Captures d’écran des vues (Main, Portfolio, Charts, Analysis)
+

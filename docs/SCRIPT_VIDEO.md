@@ -145,16 +145,18 @@ Dis:
 > "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton**."
 > "Pour garantir un point d'accès centralisé et thread-safe."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/PortfolioService.java` lignes 18-33]**
 ```java
 public class PortfolioService {
-    // Instance unique (Singleton)
     private static PortfolioService instance;
+    private final PersistenceService persistenceService;
+    private final MarketDataService marketDataService;
 
-    // Constructeur privé
-    private PortfolioService() { ... }
+    private PortfolioService() {
+        this.persistenceService = PersistenceService.getInstance();
+        this.marketDataService = MarketDataService.getInstance();
+    }
 
-    // Point d'accès global
     public static PortfolioService getInstance() {
         if (instance == null) {
             instance = new PortfolioService();
@@ -167,13 +169,19 @@ public class PortfolioService {
 Dis:
 > "J'utilise aussi l'API **Stream** de Java pour manipuler les données."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/AnalysisController.java` lignes 87-105]**
 ```java
-// Exemple Stream API
-public double getTotalValue() {
-    return assets.stream()
-        .mapToDouble(asset -> asset.getValue())
-        .sum();
+private void updateStats(List<WhaleAlertClient.WhaleTransaction> transactions) {
+    double totalVolume = transactions.stream().mapToDouble(t -> t.usdValue).sum();
+
+    String topToken = transactions.stream()
+            .collect(java.util.stream.Collectors.groupingBy(t -> t.symbol, 
+                    java.util.stream.Collectors.summingDouble(t -> t.usdValue)))
+            .entrySet().stream()
+            .max(java.util.Map.Entry.comparingByValue())
+            .map(java.util.Map.Entry::getKey)
+            .orElse("BTC");
+    topTokenLabel.setText(topToken);
 }
 ```
 
@@ -185,21 +193,31 @@ Dis:
 > "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal."
 > "Voici la solution technique avec une `Task` JavaFX."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/PortfolioController.java` lignes 92-122]**
 ```java
-// Utilisation de Task pour ne pas bloquer l'UI
-Task<Map<String, Double>> task = new Task<>() {
-    @Override
-    protected Map<String, Double> call() {
-        // Exécuté dans un thread séparé (Background)
-        return marketDataService.getPrices(tickers);
-    }
-};
+private void loadPricesAsync() {
+    Task<Map<String, Double>> task = new Task<>() {
+        @Override
+        protected Map<String, Double> call() {
+            Map<String, Double> prices = new HashMap<>();
+            for (Asset asset : currentPortfolio.getAssets()) {
+                double price = marketDataService.getPrice(
+                        asset.getTicker(), asset.getType(), currentPortfolio.getCurrency());
+                prices.put(asset.getTicker(), price);
+            }
+            return prices;
+        }
+    };
 
-// Callback sur le thread JavaFX (UI Update)
-task.setOnSucceeded(e -> updateCharts(task.getValue()));
+    task.setOnSucceeded(e -> {
+        priceCache.clear();
+        priceCache.putAll(task.getValue());
+        refreshTable();
+        updateSummary();
+    });
 
-new Thread(task).start();
+    new Thread(task).start();
+}
 ```
 
 Dis:
@@ -213,19 +231,22 @@ Dis:
 > "Pour l'optimisation, j'utilise une stratégie de cache fichier."
 > "Complexité O(1) si le fichier existe."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/CacheService.java` lignes 45-58]**
 ```java
-public Map<String, Double> getCachedPrices(String ticker) {
-    File cacheFile = new File(CACHE_DIR, ticker + ".json");
-    
-    // Stratégie Write-Through
-    if (cacheFile.exists()) {
-        // O(1) - Lecture immédiate
-        return loadFromJson(cacheFile); 
+public void cachePrice(String ticker, LocalDate date, double price) {
+    memoryCache.computeIfAbsent(ticker, k -> new HashMap<>()).put(date, price);
+    saveCacheToFile(ticker);
+}
+
+public Optional<Double> getCachedPrice(String ticker, LocalDate date) {
+    if (!memoryCache.containsKey(ticker)) {
+        loadCacheFromFile(ticker);
     }
-    
-    // Latence réseau
-    return fetchFromApi(ticker);
+    Map<LocalDate, Double> tickerCache = memoryCache.get(ticker);
+    if (tickerCache != null && tickerCache.containsKey(date)) {
+        return Optional.of(tickerCache.get(date));
+    }
+    return Optional.empty();
 }
 ```
 
