@@ -8,7 +8,17 @@
 ---
 
 ## 1. Introduction
-PortfolioTracker est une application desktop JavaFX permettant de suivre un ou plusieurs portefeuilles d’actifs (crypto et actions) avec des graphiques, des analyses de performance, un import CSV et une persistance locale. Le but de ce document est de décrire **l’implémentation réelle** du projet (architecture, services, APIs, persistance, tests) de façon claire et professionnelle.
+PortfolioTracker est une application desktop JavaFX de suivi de portefeuilles (crypto et actions). Elle fournit un suivi de valeur, des graphiques, des analyses, un import CSV et une persistance locale.
+
+**Objectifs de ce document**
+- Décrire l’implémentation réelle (architecture, services, APIs, persistance, tests).
+- Donner une vision claire, professionnelle et exploitable pour relecture technique.
+- Servir de base courte (8–10 pages) pour le rendu final.
+
+**Sources utilisées**
+- Code source du projet (packages `model`, `controller`, `service`, `api`, `util`).
+- Vues JavaFX (FXML/CSS).
+- Diagrammes UML fournis (classes + séquences).
 
 ---
 
@@ -219,4 +229,3 @@ mvn test
 - Diagramme MVC global
 - Diagramme UML simplifié des modèles
 - Captures d’écran des vues (Main, Portfolio, Charts, Analysis)
-
