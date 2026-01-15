@@ -25,18 +25,29 @@ PortfolioTracker est une application desktop JavaFX de suivi de portefeuilles (c
 ## 2. Périmètre & Fonctionnalités livrées
 
 ### 2.1 Fonctionnalités principales
-- **Gestion multi-portfolios** : création, suppression, clonage.  
-- **Gestion d’assets** : ajout d’actifs, transactions BUY/SELL/REWARD/CONVERT.  
-- **Graphiques** : évolution de la valeur + allocation en camembert.  
-- **Import CSV Coinbase** : parsing des transactions et création d’actifs.  
-- **Persistance locale JSON** : sauvegarde automatique.  
-- **Devise de référence** : conversion EUR/USD/GBP/CHF/JPY.  
+- **Gestion multi-portfolios** : création, suppression, clonage, changement de devise de référence.  
+- **Gestion d’assets** : ajout/suppression d’actifs, transactions BUY/SELL/REWARD/CONVERT, calculs de quantité totale, coût moyen et P&L.  
+- **Graphiques** : évolution de la valeur sur périodes 1W/1M/3M/1Y, sélection d’un asset, allocation par actif.  
+- **Import CSV Coinbase** : import des transactions depuis un CSV Coinbase, création d’actifs manquants, normalisation des types de transaction.  
+- **Persistance locale JSON** : sauvegarde automatique des portfolios et événements (JSON chiffré ou clair).  
+- **Devise de référence** : conversion et affichage des valeurs dans une devise choisie (EUR/USD/GBP/CHF/JPY).  
 
 ### 2.2 Fonctionnalités avancées
-- **Events** sur les graphiques (crash, hack, décision).  
-- **Analysis** : Profit vs Loss days + Best/Worst day.  
-- **Whale Alerts** : transactions > $1M (API WhaleAlert ou fallback mock).  
-- **Chiffrement local** (XOR) activable par passphrase.
+- **Events** sur les graphiques : ajout d’événements (crash, hack, décision) et affichage par marqueurs sur la courbe.  
+- **Analysis** : profit vs loss days, best/worst day sur 30 jours, synthèse visuelle.  
+- **Whale Alerts** : transactions crypto > $1M via API WhaleAlert (ou fallback mock).  
+- **Chiffrement local** : activation au démarrage via passphrase, stockage en `.json.enc` (XOR pédagogique).  
+
+### 2.3 Éléments hors périmètre (assumés)
+- **Sécurité forte** : le chiffrement XOR est volontairement simplifié (objectif pédagogique).  
+- **Historique transactionnel exact** : les courbes représentent la valeur à quantité actuelle, pas un historique “réel” des achats/ventes.  
+- **Disponibilité API** : dépendance à des endpoints externes non contractuels (Yahoo, Binance, WhaleAlert).  
+
+> **Images à insérer dans cette section :**
+> - **Figure 1** — Capture écran “Main / Portfolio view” (illustrer multi-portfolios + valeurs + P&L).
+> - **Figure 2** — Capture écran “Charts view” (courbe + allocation + compare all).
+> - **Figure 3** — Capture écran “Analysis view” (Whale Alerts + Profit/Loss days).
+> - **Figure 4** — Capture écran “Import CSV” (dialog + exemple de fichier Coinbase).
 
 ---
 
