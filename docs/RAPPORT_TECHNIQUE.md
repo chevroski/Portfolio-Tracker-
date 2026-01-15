@@ -52,15 +52,28 @@ PortfolioTracker est une application desktop JavaFX de suivi de portefeuilles (c
 ---
 
 ## 3. Architecture logicielle
-Le projet suit une architecture **MVC stricte** :
+Le projet suit une architecture **MVC** structurée en couches. L’objectif est de **séparer la présentation**, la **logique métier** et l’**accès aux données** afin de faciliter la maintenance et l’évolution.
 
-- **Model** : objets métier simples (`Portfolio`, `Asset`, `Transaction`, `Event`).  
-- **View** : FXML + CSS (JavaFX).  
-- **Controller** : orchestration UI et appel aux services.  
-- **Service Layer** : logique métier et accès données.  
-- **API Layer** : clients HTTP externes.
+**Découpage retenu**
+- **Model** : entités métier simples (portfolio, asset, transaction, event).  
+- **View** : fichiers FXML + CSS pour l’interface JavaFX.  
+- **Controller** : logique d’écran (handlers, binding UI, navigation).  
+- **Service Layer** : logique métier + orchestration (calculs, import, persistance, cache).  
+- **API Layer** : clients HTTP externes (prix, taux, whale alerts).  
 
-> **Insertion recommandée :** *Diagramme MVC / diagramme des packages* (figure 1)
+**Raisons du choix**
+- Limiter le couplage entre UI et logique métier.  
+- Réutiliser la logique (ex. calculs) sans dépendre d’une vue.  
+- Préparer un éventuel changement d’UI (Web ou autre).  
+
+**Flux principal (haut niveau)**
+1. L’utilisateur interagit avec une **View** (FXML).  
+2. Le **Controller** déclenche des actions (ex. ajout d’asset, import CSV).  
+3. Les **Services** exécutent la logique métier, appellent la persistance ou les APIs.  
+4. Le **Controller** met à jour l’UI avec les résultats.  
+
+> **Image à insérer dans cette section :**
+> - **Figure 5** — Diagramme MVC / diagramme des packages (UML fourni).
 
 ---
 
