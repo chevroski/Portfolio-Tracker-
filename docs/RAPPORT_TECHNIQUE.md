@@ -116,48 +116,52 @@ Objet simple pour l’historique des prix (timestamp + prix).
 ## 5. Services (logique métier)
 
 ### 5.1 PortfolioService
-- CRUD de portfolios
-- Ajout d’actifs / transactions
-- Clonage
-- Import CSV Coinbase
-
-**Classe :** `service/PortfolioService.java`
+- **Rôle** : point d’entrée métier pour la gestion des portfolios.  
+- **Responsabilités** : CRUD, clonage, ajout d’assets/transactions, import CSV Coinbase.  
+- **Détails clés** : parsing CSV (lignes 8+), normalisation des types BUY/SELL/REWARD/CONVERT.  
+- **Classe** : `service/PortfolioService.java`
 
 ### 5.2 MarketDataService
-- Façade vers crypto/stocks
-- Cache mémoire (TTL) + cache disque (USD seulement)
-- Conversion devise
-
-**Classe :** `service/MarketDataService.java`
+- **Rôle** : façade unique pour les prix et historiques.  
+- **Responsabilités** : accès crypto (CoinGecko/Binance), actions (Yahoo), conversion devises.  
+- **Cache** : mémoire (TTL prix/historique) + cache disque (USD uniquement).  
+- **Classe** : `service/MarketDataService.java`
 
 ### 5.3 PersistenceService
-- Sérialisation JSON via Gson
-- Fichiers `data/portfolios/*.json` ou `*.json.enc` si chiffré
-
-**Classe :** `service/PersistenceService.java`
+- **Rôle** : persistance locale des portfolios et événements.  
+- **Responsabilités** : JSON Gson, écriture/lecture fichiers, intégration chiffrement.  
+- **Stockage** : `data/portfolios/*.json` ou `*.json.enc`, `data/events/events.json`.  
+- **Classe** : `service/PersistenceService.java`
 
 ### 5.4 EncryptionService
-- Chiffrement XOR (démonstration académique)
-- Activé via la passphrase au lancement
-
-**Classe :** `service/EncryptionService.java`
+- **Rôle** : chiffrement/déchiffrement des données locales.  
+- **Implémentation** : XOR symétrique, activation via passphrase (mode pédagogique).  
+- **Classe** : `service/EncryptionService.java`
 
 ### 5.5 CacheService
-- Cache disque des prix par ticker et date
-- Stocké dans `data/cache/`
-
-**Classe :** `service/CacheService.java`
+- **Rôle** : cache disque des prix (par ticker et date).  
+- **Responsabilités** : lecture/écriture JSON, pré-chargement en mémoire.  
+- **Stockage** : `data/cache/` (fichiers `{ticker}_cache.json`).  
+- **Classe** : `service/CacheService.java`
 
 ### 5.6 EventService
-- Gestion des événements pour les charts
-
-**Classe :** `service/EventService.java`
+- **Rôle** : gestion des événements (global ou par portfolio).  
+- **Responsabilités** : ajout/suppression, filtrage, tri par date, persistance JSON.  
+- **Classe** : `service/EventService.java`
 
 ### 5.7 AnalysisService
-- ROI, PnL, allocation
-- Périodes profitables/déficitaires
+- **Rôle** : calculs analytiques (ROI, PnL, allocation).  
+- **Responsabilités** : métriques globales, allocations par type/actif, jours profitables.  
+- **Classe** : `service/AnalysisService.java`
 
-**Classe :** `service/AnalysisService.java`
+### 5.8 DemoService
+- **Rôle** : chargement de données de démonstration (portfolios + events + cache).  
+- **Sources** : ressources `/demo/*.json` ou fallback `data/demo/`.  
+- **Classe** : `service/DemoService.java`
+
+> **Image à insérer dans cette section :**
+> - **Figure 7** — UML séquence “Import CSV Coinbase”.
+> - **Figure 8** — UML séquence “Chiffrement + chargement”.
 
 ---
 
