@@ -168,9 +168,10 @@ Objet simple pour l’historique des prix (timestamp + prix).
 ## 6. APIs externes
 
 ### 6.1 Crypto (Binance via CoinGeckoClient)
-Le client nommé `CoinGeckoClient` interroge **l’API Binance** pour :
-- Prix actuels (`/ticker/price`)
-- Historique (`/klines`)
+Le client `CoinGeckoClient` interroge **l’API Binance** (malgré son nom) pour :
+- **Prix actuels** : endpoint `/ticker/price`  
+- **Historique** : endpoint `/klines` (candles)  
+- **Mapping** : conversion ticker → id (ex. BTC → bitcoin) avant requête
 
 ### 6.2 Actions (Yahoo Finance)
 Utilisation d’un endpoint Yahoo non-officiel :
@@ -181,6 +182,14 @@ Conversion entre devises par `api.exchangerate-api.com`.
 
 ### 6.4 Whale Alerts
 Utilisation de `api.whale-alert.io` avec fallback sur données mockées.
+
+**Gestion des erreurs et limites**
+- Les appels externes peuvent échouer (latence, rate limit).  
+- Les services utilisent le cache local pour limiter la fréquence des appels.  
+- Le fallback mock garantit un affichage stable côté UI (analysis).  
+
+> **Image à insérer dans cette section :**
+> - **Figure 9** — Tableau récapitulatif des APIs (nom, usage, limites).
 
 ---
 
