@@ -128,33 +128,32 @@
 **[ÉCRAN - IDE Vue globale, tous les packages réduits sauf la racine]**
 
 Dis:
-> "Passons à l'ingénierie sous-jacente. Pour ce projet, mon objectif était de concevoir une architecture **robuste, maintenable et scalable**."
->
-> "J'ai opté pour une architecture **MVC stricte** afin de garantir une séparation claire des responsabilités (Separation of Concerns)."
+> "Passons à l'ingénierie sous-jacente. Pour ce projet, mon objectif était de concevoir une architecture **robuste, maintenable et scalable**. J'ai donc opté pour une architecture **MVC stricte** afin de garantir une séparation claire des responsabilités (Separation of Concerns)."
 
 **[ACTION: Déploie les packages `model`, `view`, `controller` un par un]**
 
 Dis:
-> "Cette structure découple la logique métier de l'interface utilisateur. Cela permet non seulement de faciliter les tests unitaires, mais aussi d'envisager une migration future de la vue (par exemple vers le Web) sans réécrire le cœur logique."
+> "Cette structure découple la logique métier de l'interface utilisateur. Cela permet de faciliter les tests unitaires et d'envisager une migration future de la vue, par exemple vers le Web, sans réécrire le cœur logique."
 
 ---
 
 ## DEEP DIVE 1: DESIGN PATTERNS & SERVICES (2 min)
 
 Dis:
-> "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton**."
-> "Pour garantir un point d'accès centralisé et thread-safe."
+> "Au niveau de la couche Service, j'ai implémenté le **Pattern Singleton** afin de garantir un point d'accès centralisé et thread-safe. C'est pratique ici car chaque service orchestre une responsabilité unique : par exemple, `PortfolioService` centralise le CRUD, la persistance et l'accès aux prix, ce qui permet à tous les contrôleurs de réutiliser la même logique métier."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/PortfolioService.java` lignes 18-33]**
 ```java
 public class PortfolioService {
-    // Instance unique (Singleton)
     private static PortfolioService instance;
+    private final PersistenceService persistenceService;
+    private final MarketDataService marketDataService;
 
-    // Constructeur privé
-    private PortfolioService() { ... }
+    private PortfolioService() {
+        this.persistenceService = PersistenceService.getInstance();
+        this.marketDataService = MarketDataService.getInstance();
+    }
 
-    // Point d'accès global
     public static PortfolioService getInstance() {
         if (instance == null) {
             instance = new PortfolioService();
@@ -165,72 +164,130 @@ public class PortfolioService {
 ```
 
 Dis:
-> "J'utilise aussi l'API **Stream** de Java pour manipuler les données."
+> "J'utilise aussi l'API **Stream** de Java pour manipuler les données. Ça réduit le bruit et rend les agrégations lisibles : ici, on calcule la somme du volume, on regroupe par token, puis on sélectionne le top."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/AnalysisController.java` lignes 87-105]**
 ```java
-// Exemple Stream API
-public double getTotalValue() {
-    return assets.stream()
-        .mapToDouble(asset -> asset.getValue())
-        .sum();
+private void updateStats(List<WhaleAlertClient.WhaleTransaction> transactions) {
+    double totalVolume = transactions.stream().mapToDouble(t -> t.usdValue).sum();
+
+    String topToken = transactions.stream()
+            .collect(java.util.stream.Collectors.groupingBy(t -> t.symbol, 
+                    java.util.stream.Collectors.summingDouble(t -> t.usdValue)))
+            .entrySet().stream()
+            .max(java.util.Map.Entry.comparingByValue())
+            .map(java.util.Map.Entry::getKey)
+            .orElse("BTC");
+    topTokenLabel.setText(topToken);
 }
 ```
-
----
 
 ## DEEP DIVE 2: CONCURRENCE & MULTITHREADING (2 min)
 
 Dis:
-> "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal."
-> "Voici la solution technique avec une `Task` JavaFX."
+> "Le défi d'une UI réactive, c'est de ne jamais bloquer le thread principal. Voici la solution technique avec une `Task` JavaFX : je récupère les prix en arrière-plan et je mets à jour l'UI uniquement à la fin. En cas d'erreur réseau, je sécurise avec une valeur 0 et l'app reste fluide."
 
-**[CODE À MONTRER:]**
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/controller/PortfolioController.java` lignes 92-123]**
 ```java
-// Utilisation de Task pour ne pas bloquer l'UI
-Task<Map<String, Double>> task = new Task<>() {
-    @Override
-    protected Map<String, Double> call() {
-        // Exécuté dans un thread séparé (Background)
-        return marketDataService.getPrices(tickers);
-    }
-};
+private void loadPricesAsync() {
+    Task<Map<String, Double>> task = new Task<>() {
+        @Override
+        protected Map<String, Double> call() {
+            Map<String, Double> prices = new HashMap<>();
+            for (Asset asset : currentPortfolio.getAssets()) {
+                double price = marketDataService.getPrice(
+                        asset.getTicker(), asset.getType(), currentPortfolio.getCurrency());
+                prices.put(asset.getTicker(), price);
+            }
+            return prices;
+        }
+    };
 
-// Callback sur le thread JavaFX (UI Update)
-task.setOnSucceeded(e -> updateCharts(task.getValue()));
+    task.setOnSucceeded(e -> {
+        priceCache.clear();
+        priceCache.putAll(task.getValue());
+        refreshTable();
+        updateSummary();
+    });
 
-new Thread(task).start();
-```
-
-Dis:
-> "La méthode `call` est en arrière-plan. `setOnSucceeded` met à jour l'interface. C'est fluide."
-
----
-
-## DEEP DIVE 3: OPTIMISATION (1 min 30)
-
-Dis:
-> "Pour l'optimisation, j'utilise une stratégie de cache fichier."
-> "Complexité O(1) si le fichier existe."
-
-**[CODE À MONTRER:]**
-```java
-public Map<String, Double> getCachedPrices(String ticker) {
-    File cacheFile = new File(CACHE_DIR, ticker + ".json");
-    
-    // Stratégie Write-Through
-    if (cacheFile.exists()) {
-        // O(1) - Lecture immédiate
-        return loadFromJson(cacheFile); 
-    }
-    
-    // Latence réseau
-    return fetchFromApi(ticker);
+    new Thread(task).start();
 }
 ```
 
 Dis:
-> "C'est ce qui permet à l'application de démarrer instantanément."
+> "La méthode `call` est en arrière-plan, puis `setOnSucceeded` met à jour l'interface. C'est ce qui évite les freezes et garantit une UX agréable."
+
+---
+
+## DEEP DIVE 3: OPTIMISATION & CACHE (2 min)
+
+Dis:
+> "Pour l'optimisation, j'utilise une stratégie de cache fichier, avec une complexité O(1) si le fichier existe. On a un cache mémoire et un cache disque JSON : le cache disque évite de redemander les prix historiques, qui ne changent pas."
+
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/CacheService.java` lignes 45-58]**
+```java
+public void cachePrice(String ticker, LocalDate date, double price) {
+    memoryCache.computeIfAbsent(ticker, k -> new HashMap<>()).put(date, price);
+    saveCacheToFile(ticker);
+}
+
+public Optional<Double> getCachedPrice(String ticker, LocalDate date) {
+    if (!memoryCache.containsKey(ticker)) {
+        loadCacheFromFile(ticker);
+    }
+    Map<LocalDate, Double> tickerCache = memoryCache.get(ticker);
+    if (tickerCache != null && tickerCache.containsKey(date)) {
+        return Optional.of(tickerCache.get(date));
+    }
+    return Optional.empty();
+}
+```
+
+Dis:
+> "C'est ce qui permet à l'application de démarrer instantanément, et le `MarketDataService` garde un cache court terme pour éviter les appels répétés."
+
+**[CODE À MONTRER: `src/main/java/com/portfoliotracker/service/MarketDataService.java` lignes 60-97]**
+```java
+public double getPrice(String ticker, AssetType type, String currency) {
+    String cacheKey = ticker.toUpperCase() + "_" + currency.toUpperCase();
+
+    CachedPrice cached = priceCache.get(cacheKey);
+    if (cached != null && !cached.isExpired()) {
+        return cached.price;
+    }
+
+    LocalDate today = LocalDate.now();
+    if (currency.equalsIgnoreCase("USD")) {
+        Optional<Double> diskCached = cacheService.getCachedPrice(ticker, today);
+        if (diskCached.isPresent()) {
+            priceCache.put(cacheKey, new CachedPrice(diskCached.get()));
+            return diskCached.get();
+        }
+    }
+
+    double price = 0;
+    if (type == AssetType.CRYPTO) {
+        String coinId = TICKER_TO_COINGECKO.getOrDefault(ticker.toUpperCase(), ticker.toLowerCase());
+        price = coinGeckoClient.getCurrentPrice(coinId, currency);
+    } else {
+        price = yahooClient.getCurrentPrice(ticker);
+        if (price > 0 && !currency.equalsIgnoreCase("USD")) {
+            price = exchangeClient.convert(price, "USD", currency);
+        }
+    }
+
+    if (price > 0) {
+        if (currency.equalsIgnoreCase("USD")) {
+            cacheService.cachePrice(ticker, today, price);
+        }
+        priceCache.put(cacheKey, new CachedPrice(price));
+    }
+    return price;
+}
+```
+
+Dis:
+> "On a donc un cache court terme en mémoire et un cache long terme sur disque. C'est ce qui garantit performance et stabilité."
 
 ---
 
