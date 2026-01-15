@@ -80,26 +80,36 @@ Le projet suit une architecture **MVC** structurée en couches. L’objectif est
 ## 4. Modèle de données
 
 ### 4.1 Portfolio
-Un portefeuille contient un nom, une devise de référence et une liste d’actifs. Il supporte le clonage (deep copy).  
-- Classe : `model/Portfolio.java`
+Un portefeuille contient un identifiant, un nom, une description, une devise de référence, une date de création et une liste d’actifs.  
+- **Rôle** : racine métier, regroupe les actifs d’un utilisateur.  
+- **Fonctions clés** : ajout/suppression d’actifs, accès par ticker/id, clonage (deep copy).  
+- **Classe** : `model/Portfolio.java`
 
 ### 4.2 Asset
-Un actif contient un ticker, un type (STOCK/CRYPTO) et une liste de transactions.  
-- Classe : `model/Asset.java`
+Un actif représente une position (ticker, nom, type) et une liste de transactions.  
+- **Rôle** : calculer les quantités détenues et les métriques d’achat.  
+- **Fonctions clés** : quantité totale, prix moyen d’achat, total investi.  
+- **Classe** : `model/Asset.java`
 
 ### 4.3 Transaction
-Chaque transaction garde type, quantité, prix, date et frais.  
-- Classe : `model/Transaction.java`
+Chaque transaction conserve un identifiant, un type, une quantité, un prix unitaire, une date, des frais et des notes.  
+- **Rôle** : historiser les opérations (BUY/SELL/REWARD/CONVERT).  
+- **Fonction clé** : calcul du coût total (quantité × prix + frais).  
+- **Classe** : `model/Transaction.java`
 
 ### 4.4 Event
-Un événement peut être global ou attaché à un portefeuille.  
-- Classe : `model/Event.java`
+Un événement est global ou rattaché à un portefeuille (ex. crash, décision, hack).  
+- **Rôle** : annoter la courbe de valeur avec un contexte.  
+- **Fonction clé** : `isGlobal()` pour filtrer global vs portfolio.  
+- **Classe** : `model/Event.java`
 
 ### 4.5 PricePoint
-Objet simple pour l’historique de prix (timestamp + prix).  
-- Classe : `model/PricePoint.java`
+Objet simple pour l’historique des prix (timestamp + prix).  
+- **Rôle** : servir de base aux courbes de valeurs.  
+- **Classe** : `model/PricePoint.java`
 
-> **Insertion recommandée :** *Diagramme UML simplifié des entités* (figure 2)
+> **Image à insérer dans cette section :**
+> - **Figure 6** — UML classes (Portfolio, Asset, Transaction, Event, PricePoint).
 
 ---
 
