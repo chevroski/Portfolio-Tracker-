@@ -196,15 +196,25 @@ Utilisation de `api.whale-alert.io` avec fallback sur données mockées.
 ## 7. Interface utilisateur (JavaFX)
 
 ### 7.1 Écrans principaux
-- **Main** : toolbar + sidebar portfolios
-- **Portfolio view** : table assets + P&L
-- **Charts view** : line chart + pie chart
-- **Analysis view** : whale alerts + stats
-- **Passphrase dialog** : chiffrement
+- **Main** : toolbar (actions), sidebar (portfolios), zone centrale.  
+- **Portfolio view** : table assets, valeur totale, P&L.  
+- **Charts view** : courbe de valeur, allocation, sélection période/asset, compare all.  
+- **Analysis view** : whale alerts + statistiques + profit/loss days.  
+- **Passphrase dialog** : activation/désactivation du chiffrement.  
 
 **Fichiers FXML** : `main.fxml`, `portfolio-view.fxml`, `chart-view.fxml`, `analysis-view.fxml`, `passphrase-dialog.fxml`.
 
-> **Insertion recommandée :** captures d’écran des vues principales (figures 3-6)
+### 7.2 Comportements UI notables
+- **Navigation** : chargement dynamique des vues via le contrôleur principal.  
+- **Feedback visuel** : labels positifs/négatifs pour P&L, couleurs dynamiques.  
+- **Filtres** : périodes 1W/1M/3M/1Y et sélection d’asset dans Charts.  
+- **Compare All** : superposition des courbes multi-portfolios.  
+
+> **Images à insérer dans cette section :**
+> - **Figure 10** — Main/Portfolio (valeur + P&L + table).  
+> - **Figure 11** — Charts (courbe + allocation + compare all).  
+> - **Figure 12** — Analysis (whale alerts + profit/loss days).  
+> - **Figure 13** — Passphrase dialog (chiffrement).
 
 ---
 
