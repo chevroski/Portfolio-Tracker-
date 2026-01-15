@@ -219,32 +219,58 @@ Utilisation de `api.whale-alert.io` avec fallback sur données mockées.
 ---
 
 ## 8. Concurrence & performance
-Les appels API sont exécutés dans des **Tasks JavaFX** pour ne pas bloquer l’UI :
-- `PortfolioController` (chargement prix)
-- `ChartController` (historique)
-- `AnalysisController` (whale alerts + stats)
+Les appels réseau sont exécutés dans des **Tasks JavaFX** afin de préserver la réactivité de l’interface.  
+
+**Principe**
+- Les appels I/O (APIs externes) tournent en arrière‑plan.  
+- L’UI est mise à jour uniquement dans le callback `setOnSucceeded`.  
+
+**Points d’usage**
+- `PortfolioController` : chargement des prix en asynchrone.  
+- `ChartController` : récupération d’historique et construction des séries.  
+- `AnalysisController` : chargement Whale Alerts + stats.  
+
+**Performance perçue**
+- Pas de blocage du thread JavaFX.  
+- Chargement progressif des vues (spinner/labels).  
 
 ---
 
 ## 9. Persistance & chiffrement
 
-- Les données sont stockées en JSON dans `data/portfolios/`.
-- Si chiffrement activé, sauvegarde sous `*.json.enc`.
-- Le chiffrement est un **XOR** simple (objectif pédagogique, pas sécurité production).
+**Persistance**
+- Stockage local JSON via Gson.  
+- Dossiers : `data/portfolios/` et `data/events/`.  
+- Sauvegarde automatique après modification.  
+
+**Chiffrement**
+- Activation via passphrase au lancement.  
+- Écriture des fichiers sous `*.json.enc`.  
+- Algorithme XOR symétrique (objectif pédagogique, pas sécurité production).  
+
+> **Image à insérer dans cette section :**
+> - **Figure 14** — UML séquence “Chiffrement + chargement”.
 
 ---
 
 ## 10. Analyse & statistiques
 
 ### 10.1 Charts
-- Graphique de valeur sur 1W / 1M / 3M / 1Y
-- Sélection d’un asset individuel
-- Mode “Compare All” pour multi-portfolio
+- Graphique de valeur sur 1W / 1M / 3M / 1Y.  
+- Sélection d’un asset individuel.  
+- Mode “Compare All” (superposition multi‑portfolios).  
 
 ### 10.2 Analysis
-- Whale Alerts (transactions > $1M)
-- Profit vs Loss days (30 jours)
-- Best/Worst day
+- Whale Alerts (transactions > $1M).  
+- Profit vs Loss days (30 jours).  
+- Best/Worst day.  
+
+**Limite assumée (charts)**
+- Les courbes représentent une valeur “à quantités actuelles”, pas un historique transactionnel complet.  
+
+> **Image à insérer dans cette section :**
+> - **Figure 15** — Capture Charts (courbe + allocation + compare).
+> - **Figure 16** — Capture Analysis (whale alerts + profit/loss days).
 
 ---
 
