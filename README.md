@@ -11,7 +11,7 @@
     <em>Projet Scolaire - Module II.1102 (Programmation Java Avancée)</em>
     <br />
     <br />
-    <a href="docs/doc2/RAPPORT_technique-34pages.pdf"><strong>Lire le Rapport Technique (34 pages) »</strong></a>
+    <a href="docs/doc2/Rapport%20technique-%208%20Pages.pdf"><strong>Lire le Rapport Technique (8 pages) »</strong></a>
     <br />
     <br />
     <a href="#demo">Voir la Démo</a>
