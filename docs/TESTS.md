@@ -1,4 +1,4 @@
-# 🧪 Documentation des Tests Unitaires
+# Documentation des Tests Unitaires
 
 ## Résumé
 
@@ -6,7 +6,7 @@
 |----------|--------|
 | **Framework** | JUnit 5 (Jupiter) |
 | **Total Tests** | 11 |
-| **Réussis** | 11 ✅ |
+| **Réussis** | 11 oui |
 | **Échecs** | 0 |
 | **Temps d'exécution** | ~0.1s |
 
@@ -107,11 +107,11 @@ mvn test -Dtest=AssetTest
 
 | Composant | Couvert par Tests |
 |-----------|:-----------------:|
-| **Model.Asset** | ✅ Calculs financiers |
-| **Service.EncryptionService** | ✅ Encryption/Decryption |
-| **Service.EventService** | ⚠️ Non (dépendance fichiers) |
-| **Service.PortfolioService** | ⚠️ Non (dépendance persistance) |
-| **Controllers** | ❌ Non (nécessite JavaFX Test) |
+| **Model.Asset** | oui - Calculs financiers |
+| **Service.EncryptionService** | oui - Encryption/Decryption |
+| **Service.EventService** | Attention: Non (dépendance fichiers) |
+| **Service.PortfolioService** | Attention: Non (dépendance persistance) |
+| **Controllers** | non - Non (nécessite JavaFX Test) |
 
 ---
 

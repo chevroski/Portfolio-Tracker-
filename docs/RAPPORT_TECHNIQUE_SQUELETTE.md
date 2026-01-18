@@ -17,12 +17,12 @@ L'application couvre l'ensemble des besoins essentiels d'un investisseur particu
 
 | Catégorie | Fonctionnalité | Description Technique | État |
 | :--- | :--- | :--- | :---: |
-| **Core** | Portfolio Management | Création/Édition de multiples portefeuilles | ✅ |
-| **Core** | Asset Tracking | Support Crypto (CoinGecko) & Stocks (Yahoo) | ✅ |
-| **Analysis** | Performance Metrics | Jours en profit vs perte, meilleur/pire jour, P&L global | ✅ |
-| **UI/UX** | Dynamic Charts | Graphiques interactifs (1M, 3M, 1Y) | ✅ |
-| **Data** | Auto-Price Fetch | Récupération automatique du prix à l'ajout | ✅ |
-| **Security** | Local Encryption | Chiffrement des données sensibles (XOR) | ✅ |
+| **Core** | Portfolio Management | Création/Édition de multiples portefeuilles | oui |
+| **Core** | Asset Tracking | Support Crypto (CoinGecko) & Stocks (Yahoo) | oui |
+| **Analysis** | Performance Metrics | Jours en profit vs perte, meilleur/pire jour, P&L global | oui |
+| **UI/UX** | Dynamic Charts | Graphiques interactifs (1M, 3M, 1Y) | oui |
+| **Data** | Auto-Price Fetch | Récupération automatique du prix à l'ajout | oui |
+| **Security** | Local Encryption | Chiffrement des données sensibles (XOR) | oui |
 | **System** | Offline Mode | Support partiel via cache local | ✅ |
 
 ---

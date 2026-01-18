@@ -1,0 +1,362 @@
+\documentclass[11pt,a4paper]{article}
+
+% ========== PACKAGES ==========
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ========== MISE EN PAGE ==========
+\geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
+
+% ========== COULEURS ==========
+\definecolor{primary}{RGB}{41, 128, 185}
+\definecolor{secondary}{RGB}{44, 62, 80}
+\definecolor{success}{RGB}{39, 174, 96}
+\definecolor{codebackground}{RGB}{248, 249, 250}
+\definecolor{codeborder}{RGB}{222, 226, 230}
+
+% ========== STYLE HYPERREF ==========
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    pdftitle={Rapport Technique - PortfolioTracker},
+    pdfauthor={Adam Houri}
+}
+
+% ========== STYLE CODE ==========
+\lstdefinestyle{javastyle}{
+    backgroundcolor=\color{codebackground},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{primary}\bfseries,
+    stringstyle=\color{success},
+    commentstyle=\color{codeborder}\itshape,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{codeborder},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+    tabsize=4,
+    showstringspaces=false
+}
+\lstset{style=javastyle}
+
+% ========== STYLE TITRES ==========
+\titleformat{\section}{\Large\bfseries\color{primary}}{\thesection}{1em}{}[\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{secondary}}{\thesubsection}{1em}{}
+
+% ========== EN-TÊTE / PIED DE PAGE ==========
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{gray}{II.1102 — Programmation Java}}
+\lhead{\textcolor{gray}{PortfolioTracker}}
+\cfoot{\textcolor{gray}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ========== BOÎTES COLORÉES ==========
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1][]{
+    colback=primary!5,
+    colframe=primary,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+\newtcolorbox{successbox}[1][]{
+    colback=success!5,
+    colframe=success,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+% ========== DOCUMENT ==========
+\begin{document}
+
+% ========== PAGE DE TITRE ==========
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries\textcolor{primary}{PortfolioTracker}\par}
+    \vspace{0.5cm}
+    {\Large Application de suivi de portefeuilles financiers\par}
+    
+    \vspace{2cm}
+    
+    {\LARGE\bfseries Rapport Technique\par}
+    
+    \vspace{2cm}
+    
+    \begin{tcolorbox}[colback=primary!5, colframe=primary, width=0.7\textwidth]
+        \centering
+        \textbf{Module :} II.1102 — Programmation Java Avancée\\[0.3cm]
+        \textbf{Auteur :} Adam Houri\\[0.3cm]
+        \textbf{Date :} Janvier 2026
+    \end{tcolorbox}
+    
+    \vfill
+    
+    \includegraphics[width=0.8\textwidth]{exemple_portfolio.png}
+    
+    \vfill
+\end{titlepage}
+
+% ========== TABLE DES MATIÈRES ==========
+\tableofcontents
+\newpage
+
+% ========== SECTION 1 : INTRODUCTION ==========
+\section{Introduction}
+
+PortfolioTracker est une application desktop \textbf{JavaFX} permettant le suivi de portefeuilles financiers (cryptomonnaies et actions). Elle offre une visualisation en temps réel des positions avec graphiques, import CSV, et fonctionnalités d'analyse avancées.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Aspect} & \textbf{Choix technique} \\
+\midrule
+\faCode\ Architecture & MVC + Services (Pattern Singleton) \\
+\faDesktop\ Interface & JavaFX 21 (FXML + CSS) \\
+\faDatabase\ Persistance & JSON local (Gson) \\
+\faGlobe\ APIs & Binance, Yahoo Finance, ExchangeRate \\
+\faLock\ Sécurité & Chiffrement XOR (pédagogique) \\
+\bottomrule
+\end{tabularx}
+\caption{Synthèse des choix techniques}
+\end{table}
+
+% ========== SECTION 2 : FONCTIONNALITÉS ==========
+\section{Fonctionnalités implémentées}
+
+\subsection{Fonctionnalités principales}
+
+\begin{successbox}[\faCheckCircle\ Fonctionnalités livrées]
+\begin{itemize}[noitemsep]
+    \item \textbf{Gestion multi-portfolios} : création, suppression, clonage, changement de devise
+    \item \textbf{Gestion d'assets} : ajout/suppression, transactions BUY/SELL/REWARD/CONVERT
+    \item \textbf{Graphiques} : évolution valeur (1W/1M/3M/1Y), allocation pie chart, Compare All
+    \item \textbf{Import CSV Coinbase} : parsing automatique des transactions
+    \item \textbf{Multi-devises} : EUR, USD, GBP, CHF, JPY
+\end{itemize}
+\end{successbox}
+
+\subsection{Fonctionnalités avancées}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Events sur graphiques} : marqueurs crash/hack/décision personnelle
+    \item \textbf{Analysis} : Profit vs Loss Days, Best/Worst Day (30 jours)
+    \item \textbf{Whale Alerts} : transactions crypto > \$1M des dernières 24h
+    \item \textbf{Chiffrement local} : activation via passphrase au démarrage
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{partie_charts.png}
+    \caption{Vue Charts : évolution de la valeur et allocation}
+\end{figure}
+
+% ========== SECTION 3 : ARCHITECTURE ==========
+\section{Architecture logicielle}
+
+Le projet suit une architecture \textbf{MVC (Model-View-Controller)} avec une couche Service indépendante.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{diagramme_mvc.png}
+    \caption{Diagramme d'architecture MVC}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Package} & \textbf{Responsabilité} \\
+\midrule
+\texttt{com.portfoliotracker.model} & Entités métier (Portfolio, Asset, Transaction) \\
+\texttt{com.portfoliotracker.controller} & Orchestration UI, gestion événements \\
+\texttt{com.portfoliotracker.service} & Logique métier (Singleton) \\
+\texttt{com.portfoliotracker.api} & Clients HTTP externes \\
+\bottomrule
+\end{tabularx}
+\caption{Organisation des packages}
+\end{table}
+
+\textbf{Services implémentés :} PortfolioService, MarketDataService, PersistenceService, EncryptionService, CacheService, EventService, AnalysisService, DemoService.
+
+% ========== SECTION 4 : MODÈLE DE DONNÉES ==========
+\section{Modèle de données}
+
+\subsection{Portfolio}
+Conteneur principal avec : \texttt{id}, \texttt{name}, \texttt{description}, \texttt{currency}, \texttt{createdAt}, et une liste d'\texttt{Asset}.
+
+\subsection{Asset}
+Actif financier avec : \texttt{ticker}, \texttt{name}, \texttt{type} (CRYPTO/STOCK), et liste de \texttt{Transaction}.
+
+\textbf{Méthodes de calcul :} \texttt{getTotalQuantity()}, \texttt{getAverageBuyPrice()}, \texttt{getTotalInvested()}
+
+\subsection{Transaction}
+Opération avec : \texttt{type} (BUY/SELL/REWARD/CONVERT), \texttt{quantity}, \texttt{pricePerUnit}, \texttt{date}, \texttt{fees}.
+
+% ========== SECTION 5 : SERVICES ==========
+\section{Services clés}
+
+\subsection{Pattern Singleton}
+
+\begin{lstlisting}[language=Java, caption=Implémentation Singleton]
+public static PortfolioService getInstance() {
+    if (instance == null) {
+        instance = new PortfolioService();
+    }
+    return instance;
+}
+\end{lstlisting}
+
+\subsection{Cache à deux niveaux}
+
+Le \texttt{MarketDataService} implémente un cache optimisé :
+\begin{itemize}[noitemsep]
+    \item \textbf{Niveau 1 — Mémoire} : \texttt{ConcurrentHashMap} avec TTL de 60 secondes
+    \item \textbf{Niveau 2 — Disque} : fichiers JSON persistants pour les prix USD
+\end{itemize}
+
+% ========== SECTION 6 : INTERFACE ==========
+\section{Interface utilisateur}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Écran} & \textbf{Fichier FXML} & \textbf{Description} \\
+\midrule
+Main & main.fxml & Toolbar + navigation \\
+Portfolio & portfolio-view.fxml & Liste des assets + P\&L \\
+Charts & chart-view.fxml & Courbes + allocation \\
+Analysis & analysis-view.fxml & Whale Alerts + statistiques \\
+\bottomrule
+\end{tabularx}
+\caption{Écrans de l'application}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{partie_analyse.png}
+    \caption{Vue Analysis : Whale Alerts et Portfolio Analysis}
+\end{figure}
+
+% ========== SECTION 7 : CONCURRENCE ==========
+\section{Concurrence \& Performance}
+
+Les appels réseau sont exécutés dans des \textbf{Tasks JavaFX} pour ne pas bloquer l'interface :
+
+\begin{lstlisting}[language=Java, caption=Chargement asynchrone]
+Task<Map<String, Double>> task = new Task<>() {
+    @Override
+    protected Map<String, Double> call() {
+        // Appels API en arriere-plan
+        return prices;
+    }
+};
+task.setOnSucceeded(e -> updateUI());
+new Thread(task).start();
+\end{lstlisting}
+
+% ========== SECTION 8 : PERSISTANCE ==========
+\section{Persistance \& Chiffrement}
+
+\subsection{Structure de stockage}
+
+\begin{verbatim}
+data/
+├── portfolios/     # JSON (ou .enc si chiffré)
+├── cache/          # Prix historiques
+└── events/         # Événements utilisateur
+\end{verbatim}
+
+\subsection{Chiffrement XOR}
+
+\begin{infobox}[\faExclamationTriangle\ Note pédagogique]
+Le chiffrement XOR est une implémentation simplifiée à but éducatif. Une application de production nécessiterait AES-256.
+\end{infobox}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{passphrase.png}
+    \caption{Dialog de passphrase au démarrage}
+\end{figure}
+
+% ========== SECTION 9 : TESTS ==========
+\section{Tests unitaires}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Classe de test} & \textbf{Nb tests} & \textbf{Objectif} \\
+\midrule
+AssetTest & 5 & Calculs financiers (quantité, prix moyen) \\
+EncryptionServiceTest & 6 & Round-trip encrypt/decrypt \\
+\bottomrule
+\end{tabular}
+\caption{Couverture des tests}
+\end{table}
+
+\begin{verbatim}
+$ mvn test
+Tests run: 11, Failures: 0, Errors: 0
+BUILD SUCCESS
+\end{verbatim}
+
+% ========== SECTION 10 : CONCLUSION ==========
+\section{Conclusion}
+
+\begin{successbox}[\faCheckCircle\ Objectifs atteints]
+\begin{itemize}[noitemsep]
+    \item Gestion multi-portfolios avec visualisation graphique
+    \item Import CSV Coinbase et APIs temps réel
+    \item Fonctionnalités avancées : Analysis, Whale Alerts, Encryption
+    \item Architecture MVC propre, testée et documentée
+\end{itemize}
+\end{successbox}
+
+\subsection{Limites et évolutions}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Limite actuelle} & \textbf{Évolution envisagée} \\
+\midrule
+Chiffrement XOR simplifié & Implémenter AES-256 \\
+Cache limité à USD & Étendre aux autres devises \\
+Pas de tests UI & Ajouter TestFX \\
+\bottomrule
+\end{tabularx}
+\caption{Pistes d'amélioration}
+\end{table}
+
+\end{document}

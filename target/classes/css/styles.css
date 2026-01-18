@@ -745,10 +745,13 @@
 
 .whale-table {
     -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
 }
 
 .whale-table .column-header {
     -fx-background-color: #252a3a;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.05) transparent;
+    -fx-border-width: 0 0 1 0;
 }
 
 .whale-table .column-header .label {
@@ -756,8 +759,15 @@
     -fx-font-weight: bold;
 }
 
+.whale-table .column-header .arrow,
+.whale-table .column-header .sort-order-dots {
+    -fx-opacity: 0;
+}
+
 .whale-table .table-row-cell {
     -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.03) transparent;
+    -fx-border-width: 0 0 1 0;
 }
 
 .whale-table .table-row-cell:odd {
@@ -770,7 +780,7 @@
 
 .whale-table .table-cell {
     -fx-text-fill: #cccccc;
-    -fx-padding: 8;
+    -fx-padding: 10 12;
 }
 
 /* ==================== PERIOD BUTTONS ==================== */
@@ -818,6 +828,12 @@
 
 .chart .chart-horizontal-grid-lines {
     -fx-stroke: #1a1f2e;
+}
+
+.analysis-meter {
+    -fx-accent: #00ff88;
+    -fx-control-inner-background: #252a3a;
+    -fx-background-radius: 8;
 }
 
 .chart .chart-vertical-grid-lines {

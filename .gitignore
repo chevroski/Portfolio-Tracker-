@@ -1,0 +1,33 @@
+# Maven
+target/
+*.log
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Local App Data (Crucial: contains your portfolios and keys)
+data/
+cache/
+
+# Agent & AI working files
+.agent/
+.gemini/
+
+# Documentation
+docs/*.docx
+docs/capture*
+
+# Ignore generated PDFs/Docs generally...
+docs/*.pdf
+docs/*.md
+
+# BUT Allow specific folders with final artifacts
+!docs/doc2/
+!docs/images_overleaf/
+
+# Secrets & Configs
+secrets.properties
+passphrase.txt

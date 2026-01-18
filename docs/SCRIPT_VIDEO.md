@@ -118,7 +118,7 @@
 
 ---
 
-# 🎬 PARTIE 2: ENGINEERING & ARCHITECTURE (6-7 min)
+# PARTIE 2: ENGINEERING & ARCHITECTURE (6-7 min)
 
 > **Note:** Ce script adopte un ton "Ingénieur Senior". Il met en avant les choix d'architecture, les design patterns et la gestion de la complexité.
 
@@ -320,7 +320,7 @@ Dis:
 
 ---
 
-# ✅ CHECKLIST AVANT DE FILMER
+# CHECKLIST AVANT DE FILMER
 
 ## Préparation App
 - [ ] App lancée avec démo data chargée
@@ -343,9 +343,9 @@ Dis:
 
 ---
 
-# 💡 CONSEILS
+# CONSEILS
 
-| ❌ Évite | ✅ Préfère |
+| Évite | Préfère |
 |----------|-----------|
 | "Euh..." "Donc..." | Pause silencieuse |
 | Parler trop vite | Prendre son temps |

@@ -1,4 +1,4 @@
-# 📐 UML Diagrams - PortfolioTracker
+# UML Diagrams - PortfolioTracker
 
 > **Version**: 1.1  
 > **Format**: Mermaid  
